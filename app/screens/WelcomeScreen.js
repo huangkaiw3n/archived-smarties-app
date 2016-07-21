@@ -1,21 +1,67 @@
 'use strict'
 import React, { Component } from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import ViewContainer from '../components/ViewContainer'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Button from 'react-native-button'
 
 class WelcomeScreen extends Component{
   render() {
     return (
-      <ViewContainer style={{backgroundColor: "aliceblue", alignItems: "center", justifyContent: "center"}}>
-        <Text> StreetSmart </Text>
+      <ViewContainer style={{alignItems: "center", justifyContent: "center"}}>
+        <Text style={styles.welcomeTitle}> StreetSmart </Text>
+        <Icon name="car" style={styles.carIcon}></Icon>
+        <TouchableOpacity onPress={this.onClick} style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>
+            CREATE A NEW ACCOUNT
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.genericTextLink}> {"Have an account? Login"}</Text>
       </ViewContainer>
+
     )
   }
 }
 
 const styles = StyleSheet.create({
 
-
+  welcomeTitle: {
+    color: "steelblue",
+    fontSize: 40,
+    fontWeight: '200',
+    textAlign: "center",
+  },
+  carIcon: {
+    color: "mediumaquamarine",
+    fontSize: 115,
+    margin: 50,
+  },
+  buttonContainer: {
+    backgroundColor: "steelblue",
+    height: 60,
+    width: 300,
+    padding: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    shadowColor: "grey",
+    shadowRadius: 1,
+    shadowOpacity: 1,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 17,
+    fontWeight: "200",
+    textAlign: "center",
+  },
+  genericTextLink: {
+    color: "steelblue",
+    fontSize: 15,
+    fontWeight: '200',
+    textAlign: "center",
+    textDecorationLine: "underline",
+    margin: 30,
+  }
 })
 
 module.exports = WelcomeScreen
