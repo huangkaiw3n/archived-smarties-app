@@ -52,6 +52,14 @@ class CreateNewAccScreen extends Component{
             iconColor={'#f95a25'}
             keyboardType={'numeric'}
           />
+          <Text style={styles.genericText}>
+            By creating an account, I agree to Streetsmart's
+          </Text>
+          <TouchableOpacity>
+            <Text style={styles.genericTextLink}>
+              Terms of Use and Privacy Policy
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={this.onClick} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
@@ -87,7 +95,19 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 30,
     color: "white",
-  }
+  },
+  genericText: {
+    color: "steelblue",
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 30,
+  },
+  genericTextLink: {
+    color: "steelblue",
+    fontSize: 14,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
 })
 
 module.exports = CreateNewAccScreen
