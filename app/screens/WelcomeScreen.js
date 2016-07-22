@@ -10,18 +10,22 @@ class WelcomeScreen extends Component{
       <ViewContainer style={{alignItems: "center", justifyContent: "center"}}>
         <Text style={styles.welcomeTitle}> StreetSmart </Text>
         <Icon name="car" style={styles.carIcon}></Icon>
+
         <TouchableOpacity onPress={this.onClick} style={styles.buttonContainer}>
           <Text style={styles.buttonText}>
             CREATE A NEW ACCOUNT
           </Text>
         </TouchableOpacity>
-        <Text style={styles.genericTextLink}>
-          Have an account?
-          <Text style={styles.genericTextLinkBold}>
-            {" Login"}
-          </Text>
 
-        </Text>
+        <TouchableOpacity onPress={this.onClick}>
+          <Text style={styles.genericTextLink}>
+            Have an account?
+            <Text style={styles.genericTextLinkBold}>
+              {" Login"}
+            </Text>
+          </Text>
+        </TouchableOpacity>
+
       </ViewContainer>
 
     )
