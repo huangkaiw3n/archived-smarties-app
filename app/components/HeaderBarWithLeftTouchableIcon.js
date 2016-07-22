@@ -4,10 +4,11 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
 class HeaderBarWithLeftTouchableIcon extends Component{
+
   render() {
     return (
       <View style={styles.viewContainerHeader}>
-        <TouchableOpacity onPress={this.props.onClick} style={styles.headerFooterBar}>
+        <TouchableOpacity onPress={(event) => this._navigateToPrevScreen()} style={styles.headerFooterBar}>
           <Icon name="chevron-thin-left" style={styles.chevronLeft}></Icon>
         </TouchableOpacity>
         <Text style={styles.barText}>
@@ -15,6 +16,10 @@ class HeaderBarWithLeftTouchableIcon extends Component{
         </Text>
       </View>
     )
+  }
+
+  _navigateToPrevScreen(){
+    this.props.nav.pop()
   }
 }
 

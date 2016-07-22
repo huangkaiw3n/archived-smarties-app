@@ -13,7 +13,7 @@ class CreateNewAccScreen extends Component{
     return (
       <ViewContainer style={{justifyContent: "flex-start"}}>
 
-        <HeaderBarWithLeftTouchableIcon>
+        <HeaderBarWithLeftTouchableIcon nav={this.props.navigator}>
           CREATE A NEW ACCOUNT
         </HeaderBarWithLeftTouchableIcon>
 
@@ -31,10 +31,6 @@ class CreateNewAccScreen extends Component{
       </ViewContainer>
 
     )
-  }
-
-  _navigateToPrevScreen(){
-    this.props.navigator.pop()
   }
 }
 
