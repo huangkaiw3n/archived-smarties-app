@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import ViewContainer from '../components/ViewContainer'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Button from 'react-native-button'
 
 class WelcomeScreen extends Component{
   render() {
@@ -16,7 +15,13 @@ class WelcomeScreen extends Component{
             CREATE A NEW ACCOUNT
           </Text>
         </TouchableOpacity>
-        <Text style={styles.genericTextLink}> {"Have an account? Login"}</Text>
+        <Text style={styles.genericTextLink}>
+          Have an account?
+          <Text style={styles.genericTextLinkBold}>
+            {" Login"}
+          </Text>
+
+        </Text>
       </ViewContainer>
 
     )
@@ -56,12 +61,20 @@ const styles = StyleSheet.create({
   },
   genericTextLink: {
     color: "steelblue",
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '200',
     textAlign: "center",
     textDecorationLine: "underline",
     margin: 30,
-  }
+  },
+  genericTextLinkBold: {
+    color: "steelblue",
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: "center",
+    textDecorationLine: "underline",
+    margin: 30,
+  },
 })
 
 module.exports = WelcomeScreen
