@@ -11,7 +11,7 @@ class CreateNewAccScreen extends Component{
 
   render() {
     return (
-      <ViewContainer style={{justifyContent: "flex-start"}}>
+      <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"aliceblue"}}>
 
         <HeaderBarWithLeftTouchableIcon nav={this.props.navigator}>
           CREATE A NEW ACCOUNT
