@@ -5,13 +5,17 @@ import ViewContainer from '../components/ViewContainer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 class WelcomeScreen extends Component{
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
       <ViewContainer style={{alignItems: "center", justifyContent: "center"}}>
         <Text style={styles.welcomeTitle}> StreetSmart </Text>
         <Icon name="car" style={styles.carIcon}></Icon>
 
-        <TouchableOpacity onPress={this.onClick} style={styles.buttonContainer}>
+        <TouchableOpacity onPress={(event) => this._navigateToCreateNewAccScreen()} style={styles.buttonContainer}>
           <Text style={styles.buttonText}>
             CREATE A NEW ACCOUNT
           </Text>
@@ -30,6 +34,13 @@ class WelcomeScreen extends Component{
 
     )
   }
+
+  _navigateToCreateNewAccScreen(){
+    this.props.navigator.push({
+      identifier:"CreateNewAccScreen"
+    })
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -52,7 +63,6 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "row",
     shadowColor: "grey",
     shadowRadius: 1,
     shadowOpacity: 1,
