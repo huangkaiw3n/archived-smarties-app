@@ -11,6 +11,12 @@ class CreateNewAccScreen extends Component{
     super(props)
   }
 
+  _navigateToMapNaviScreen(){
+    this.props.navigator.push({
+      identifier:"MapNaviScreen"
+    })
+  }
+
   render() {
     return (
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"aliceblue"}}>
@@ -62,7 +68,7 @@ class CreateNewAccScreen extends Component{
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={this.onClick} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+        <TouchableOpacity onPress={(event) => this._navigateToMapNaviScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
             LET'S GET STARTED
           </Text>
