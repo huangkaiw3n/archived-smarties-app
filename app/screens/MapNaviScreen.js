@@ -16,7 +16,7 @@ class MapNaviScreen extends Component{
   }
 
   updateSelectedRoad(roadname){
-    this.setState({ roadname: roadname })
+    this.setState({ roadname })
   }
 
   render() {
