@@ -9,6 +9,7 @@ import { View, AppRegistry, StyleSheet, Text, Navigator } from 'react-native';
 import WelcomeScreen from './app/screens/WelcomeScreen'
 import CreateNewAccScreen from './app/screens/CreateNewAccScreen'
 import HeaderBarWithLeftTouchableIcon from './app/components/HeaderBarWithLeftTouchableIcon'
+import MapNaviScreen from './app/screens/MapNaviScreen'
 
 class StreetSmart extends Component {
 
@@ -20,6 +21,8 @@ class StreetSmart extends Component {
         return <WelcomeScreen {...globalNavigatorProps}/>
       case "CreateNewAccScreen":
         return <CreateNewAccScreen {...globalNavigatorProps}/>
+      case "MapNaviScreen":
+        return <MapNaviScreen {...globalNavigatorProps}/>
       default:
         return <View style={{flex:1, color:"red"}}/>
       }
@@ -29,7 +32,7 @@ class StreetSmart extends Component {
   render() {
     return (
       <Navigator
-        initialRoute = {{identifier: "WelcomeScreen"}}
+        initialRoute = {{identifier: "MapNaviScreen"}}
         ref="appNavigator"
         style={styles.navigatorStyles}
         renderScene={this._renderScene} />
