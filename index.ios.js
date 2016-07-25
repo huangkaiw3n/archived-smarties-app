@@ -32,10 +32,12 @@ class StreetSmart extends Component {
   render() {
     return (
       <Navigator
-        initialRoute = {{identifier: "MapNaviScreen"}}
+        initialRoute = {{identifier: "WelcomeScreen"}}
         ref="appNavigator"
         style={styles.navigatorStyles}
-        renderScene={this._renderScene} />
+        renderScene={this._renderScene}
+        configureScene={(route)=> ({
+          ...route.sceneConfig || Navigator.SceneConfigs.PushFromRight})} />
     );
   }
 }
