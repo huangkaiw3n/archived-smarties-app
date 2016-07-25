@@ -1,6 +1,6 @@
 'use strict'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import ViewContainer from '../components/ViewContainer'
 import HeaderBarWithLeftTouchableIcon from '../components/HeaderBarWithLeftTouchableIcon'
 import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';

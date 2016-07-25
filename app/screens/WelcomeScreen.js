@@ -1,6 +1,6 @@
 'use strict'
 import React, { Component } from 'react'
-import { Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 import ViewContainer from '../components/ViewContainer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
