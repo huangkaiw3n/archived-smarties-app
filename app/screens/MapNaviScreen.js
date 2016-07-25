@@ -1,7 +1,7 @@
 'use strict'
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-//import MapView from 'react-native-maps';
+import MapView from 'react-native-maps';
 import ViewContainer from '../components/ViewContainer'
 import HeaderBarWithMenuIcon from '../components/HeaderBarWithMenuIcon'
 
@@ -19,7 +19,7 @@ class MapNaviScreen extends Component{
         </HeaderBarWithMenuIcon>
 
         <View style={{flex:9, justifyContent:"flex-start", }}>
-          {/*<MapView
+          <MapView
             style={styles.map}
              initialRegion={{
                latitude: 37.78825,
@@ -27,7 +27,7 @@ class MapNaviScreen extends Component{
                latitudeDelta: 0.0922,
                longitudeDelta: 0.0421,
              }}
-           />*/}
+           />
 
         </View>
 
