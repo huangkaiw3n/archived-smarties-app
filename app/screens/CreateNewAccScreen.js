@@ -12,8 +12,9 @@ class CreateNewAccScreen extends Component{
   }
 
   _navigateToMapNaviScreen(){
-    this.props.navigator.push({
-      identifier:"MapNaviScreen"
+    // resetTo(route) clears the existing route stack unlike push(route)
+    this.props.navigator.resetTo({
+      identifier:"MapNaviScreen",
     })
   }
 
