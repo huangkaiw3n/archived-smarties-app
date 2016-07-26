@@ -6,7 +6,7 @@ import HeaderBarWithLeftTouchableIcon from '../components/HeaderBarWithLeftTouch
 import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Fumi } from 'react-native-textinput-effects';
 
-class CreateNewAccScreen extends Component{
+class LoginScreen extends Component{
   constructor(props){
     super(props)
   }
@@ -23,17 +23,10 @@ class CreateNewAccScreen extends Component{
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"aliceblue"}}>
 
         <HeaderBarWithLeftTouchableIcon nav={this.props.navigator}>
-          CREATE A NEW ACCOUNT
+          LOGIN
         </HeaderBarWithLeftTouchableIcon>
 
         <View style={{flex:9, justifyContent:"flex-start", }}>
-          <Fumi
-            label={'Name'}
-            iconClass={MaterialsIcon}
-            iconName={'account-circle'}
-            iconColor={'#f95a25'}
-            keyboardType={'default'}
-          />
           <Fumi
             style={{ marginTop: 3 }}
             label={'Email'}
@@ -51,27 +44,11 @@ class CreateNewAccScreen extends Component{
             secureTextEntry={true}
             keyboardType={'default'}
           />
-          <Fumi
-            style={{ marginTop: 3 }}
-            label={'Mobile No.'}
-            iconClass={MaterialsIcon}
-            iconName={'smartphone'}
-            iconColor={'#f95a25'}
-            keyboardType={'numeric'}
-          />
-          <Text style={styles.genericText}>
-            By creating an account, I agree to Streetsmart's
-          </Text>
-          <TouchableOpacity>
-            <Text style={styles.genericTextLink}>
-              Terms of Use and Privacy Policy
-            </Text>
-          </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={(event) => this._navigateToMapNaviScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
-            LET'S GET STARTED
+            LOGIN
           </Text>
         </TouchableOpacity>
 
@@ -103,18 +80,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
   },
-  genericText: {
-    color: "steelblue",
-    fontSize: 14,
-    textAlign: "center",
-    marginTop: 30,
-  },
-  genericTextLink: {
-    color: "steelblue",
-    fontSize: 14,
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
 })
 
-module.exports = CreateNewAccScreen
+module.exports = LoginScreen

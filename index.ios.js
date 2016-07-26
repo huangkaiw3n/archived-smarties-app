@@ -8,6 +8,7 @@ import React, { Component } from 'react'
 import { View, AppRegistry, StyleSheet, Text, Navigator } from 'react-native';
 import WelcomeScreen from './app/screens/WelcomeScreen'
 import CreateNewAccScreen from './app/screens/CreateNewAccScreen'
+import LoginScreen from './app/screens/LoginScreen'
 import HeaderBarWithLeftTouchableIcon from './app/components/HeaderBarWithLeftTouchableIcon'
 import MapNaviScreen from './app/screens/MapNaviScreen'
 
@@ -21,6 +22,8 @@ class StreetSmart extends Component {
         return <WelcomeScreen {...globalNavigatorProps}/>
       case "CreateNewAccScreen":
         return <CreateNewAccScreen {...globalNavigatorProps}/>
+      case "LoginScreen":
+        return <LoginScreen {...globalNavigatorProps}/>
       case "MapNaviScreen":
         return <MapNaviScreen {...globalNavigatorProps}/>
       default:

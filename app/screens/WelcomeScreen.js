@@ -21,7 +21,7 @@ class WelcomeScreen extends Component{
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onClick}>
+        <TouchableOpacity onPress={(event) => this._navigateToLoginScreen()}>
           <Text style={styles.genericTextLink}>
             Have an account?
             <Text style={styles.genericTextLinkBold}>
@@ -38,6 +38,12 @@ class WelcomeScreen extends Component{
   _navigateToCreateNewAccScreen(){
     this.props.navigator.push({
       identifier:"CreateNewAccScreen"
+    })
+  }
+
+  _navigateToLoginScreen(){
+    this.props.navigator.push({
+      identifier:"LoginScreen"
     })
   }
 
