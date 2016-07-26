@@ -31,13 +31,11 @@ class MapViewContainer extends Component{
     return (
       <MapView
       style={styles.map}
-      region={this.state.region}
-      >
+      region={this.state.region}>
         <MapView.Marker draggable
         coordinate={this.state.pinCoordinate}
         pinColor = {"steelblue"}
-        onDragEnd={(event) => this._handleSelectedLoc(event)}
-        >
+        onDragEnd={(event) => this._handleSelectedLoc(event)}>
         {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
           {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
         </MapView.Marker>
@@ -48,13 +46,17 @@ class MapViewContainer extends Component{
 
 const styles = StyleSheet.create({
 
-  viewContainer: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "stretch",
-    backgroundColor:"white",
-  },
+  // container: {
+  //   position: 'absolute',
+  //   top: 0,
+  //   left: 0,
+  //   right: 0,
+  //   bottom: 0,
+  //   height: 400,
+  //   width: 400,
+  //   justifyContent: 'flex-end',
+  //   alignItems: 'center',
+  // },
   map: {
     position: 'absolute',
     top: 0,
