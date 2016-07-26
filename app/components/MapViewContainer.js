@@ -9,13 +9,7 @@ class MapViewContainer extends Component{
   constructor(props){
     super(props)
     this.state = {
-      region: {
-        latitude: 1.3521,
-        longitude: 103.8198,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-      pinCoordinate :{
+      pinCoordinate: {
         latitude: 1.3521,
         longitude: 103.8198,
       }
@@ -24,14 +18,19 @@ class MapViewContainer extends Component{
 
   _handleSelectedLoc(e){
     this.setState({ pinCoordinate: e.nativeEvent.coordinate })
-    this.props.handler('RAR!')
+    this.props.handler(`Lat:${this.state.pinCoordinate.latitude} , Lon:${this.state.pinCoordinate.longitude}`)
   }
 
   render() {
     return (
       <MapView
       style={styles.map}
-      region={this.state.region}>
+      loadingEnabled={true}
+      loadingBackgroundColor='gainsboro'
+      initialRegion={{latitude: 1.3521,
+      longitude: 103.8198,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421}}>
         <MapView.Marker draggable
         coordinate={this.state.pinCoordinate}
         pinColor = {"steelblue"}
