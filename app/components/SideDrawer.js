@@ -23,7 +23,7 @@ class SideDrawer extends Component{
           VEHICLE
         </Text>
 
-        <View style={styles.sideTabs}>
+        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
           <Text style={[styles.labelsText, {flex:4}]}>
             Vehicle No.
           </Text>
@@ -31,46 +31,49 @@ class SideDrawer extends Component{
             SKL4231M
           </Text>
           <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
+        </TouchableOpacity>
 
-        </View>
-
-        <View style={styles.sideTabs}>
+        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
           <Text style={styles.labelsText}>
             Parking History
           </Text>
-        </View>
+        </TouchableOpacity>
+
         <Text style={styles.headingsText}>
           PAYMENT
         </Text>
 
-        <View style={styles.sideTabs}>
+        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
           <Text style={[styles.labelsText, {flex:4}]}>
             Credit Balance
           </Text>
           <Text style={[styles.labelsText, {color:"darkgrey"}]}>
             $34.00
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.sideTabs}>
+        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
           <Text style={styles.labelsText}>
             Top Up Credit
           </Text>
-        </View>
+        </TouchableOpacity>
 
         <Text style={styles.headingsText}>
           ACCOUNT
         </Text>
-        <View style={styles.sideTabs}>
+
+        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
           <Text style={styles.labelsText}>
             Change Password
           </Text>
-        </View>
-        <View style={styles.sideTabs}>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
           <Text style={styles.labelsText}>
             Log Out
           </Text>
-        </View>
+        </TouchableOpacity>
+
       </View>
     );
 
