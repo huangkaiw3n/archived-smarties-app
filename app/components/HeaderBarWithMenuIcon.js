@@ -19,7 +19,7 @@ class HeaderBarWithMenuIcon extends Component{
   }
 
   _openMenu(){
-    //this.props.nav.pop()
+    this.props.onPressMenu()
   }
 }
 
