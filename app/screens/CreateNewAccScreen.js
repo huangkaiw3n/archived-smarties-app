@@ -124,11 +124,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 0.8,
   },
-  chevronLeft: {
-    alignSelf: "center",
-    fontSize: 30,
-    color: "white",
-  },
   genericText: {
     color: "steelblue",
     fontSize: 14,

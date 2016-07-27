@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import DrawerLayout from 'react-native-drawer-layout'
+import Icon from 'react-native-vector-icons/Entypo'
 
 class SideDrawer extends Component{
 
@@ -12,7 +13,64 @@ class SideDrawer extends Component{
   render() {
     var sideDrawerView = (
       <View style={styles.sideDrawerView}>
-        <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+        <Text style={styles.headingsText}>
+          USER
+        </Text>
+        <Text style={[styles.labelsText, {marginLeft: 15}]}>
+          huangkaiw3n@gmail.com
+        </Text>
+        <Text style={styles.headingsText}>
+          VEHICLE
+        </Text>
+
+        <View style={styles.sideTabs}>
+          <Text style={[styles.labelsText, {flex:4}]}>
+            Vehicle No.
+          </Text>
+          <Text style={[styles.labelsText, {color:"darkgrey"}]}>
+            SKL4231M
+          </Text>
+          <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
+
+        </View>
+
+        <View style={styles.sideTabs}>
+          <Text style={styles.labelsText}>
+            Parking History
+          </Text>
+        </View>
+        <Text style={styles.headingsText}>
+          PAYMENT
+        </Text>
+
+        <View style={styles.sideTabs}>
+          <Text style={[styles.labelsText, {flex:4}]}>
+            Credit Balance
+          </Text>
+          <Text style={[styles.labelsText, {color:"darkgrey"}]}>
+            $34.00
+          </Text>
+        </View>
+
+        <View style={styles.sideTabs}>
+          <Text style={styles.labelsText}>
+            Top Up Credit
+          </Text>
+        </View>
+
+        <Text style={styles.headingsText}>
+          ACCOUNT
+        </Text>
+        <View style={styles.sideTabs}>
+          <Text style={styles.labelsText}>
+            Change Password
+          </Text>
+        </View>
+        <View style={styles.sideTabs}>
+          <Text style={styles.labelsText}>
+            Log Out
+          </Text>
+        </View>
       </View>
     );
 
@@ -35,8 +93,39 @@ const styles = StyleSheet.create({
   sideDrawerView: {
     flex: 1,
     backgroundColor: "ghostwhite",
+    flexDirection: "column",
     justifyContent: "flex-start",
+    alignItems: "stretch",
     marginTop: (Platform.OS === 'ios') ? 20:0,
+  },
+  headingsText: {
+    marginLeft: 15,
+    marginTop: 40,
+    fontSize: 13,
+    textAlign: 'left',
+    color: "darkgrey",
+  },
+  labelsText: {
+    fontSize: 13,
+    textAlign: 'left',
+    color: "black",
+  },
+  sideTabs: {
+    height: 45,
+    borderWidth: 1,
+    borderColor: "whitesmoke",
+    backgroundColor: "white",
+    padding: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  chevronRight: {
+    alignSelf: "center",
+    fontSize: 15,
+    color: "darkgrey",
   },
 })
 
