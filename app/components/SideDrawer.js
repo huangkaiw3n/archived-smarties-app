@@ -32,36 +32,9 @@ class SideDrawer extends Component{
 
 
 const styles = StyleSheet.create({
-
-  headerFooterBar: {
-    backgroundColor: "steelblue",
-    flex:1,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    flexDirection: "row",
-  },
-  barText: {
-    color: "white",
-    fontSize: 17,
-    fontWeight: "200",
-    textAlign: "center",
-    letterSpacing: 0.8,
-  },
-  genericText: {
-    color: "steelblue",
-    fontSize: 14,
-    textAlign: "center",
-    marginTop: 30,
-  },
-  genericTextLink: {
-    color: "steelblue",
-    fontSize: 14,
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
   sideDrawerView: {
     flex: 1,
-    backgroundColor: "aliceblue",
+    backgroundColor: "ghostwhite",
     justifyContent: "flex-start",
     marginTop: (Platform.OS === 'ios') ? 20:0,
   },

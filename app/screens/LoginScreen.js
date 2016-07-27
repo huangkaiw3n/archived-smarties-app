@@ -20,7 +20,7 @@ class LoginScreen extends Component{
 
   render() {
     return (
-      <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"aliceblue"}}>
+      <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
 
         <HeaderBarWithLeftTouchableIcon nav={this.props.navigator}>
           LOGIN

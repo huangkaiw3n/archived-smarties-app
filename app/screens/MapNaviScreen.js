@@ -28,7 +28,7 @@ class MapNaviScreen extends Component{
 
     return (
       <SideDrawer ref='SIDE_DRAWER'>
-      <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"aliceblue"}}>
+      <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
 
         <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator}>
           STREETSMART
@@ -40,7 +40,7 @@ class MapNaviScreen extends Component{
         </View>
         <Text style={{flex:0.5}}>{this.state.roadname}</Text>
 
-        <TouchableOpacity onPress={(event) => this._openSideDrawer()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+        <TouchableOpacity onPress={(event) => this.onClick} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
             PARK HERE
           </Text>
