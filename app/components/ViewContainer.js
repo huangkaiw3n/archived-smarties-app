@@ -1,6 +1,6 @@
 'use strict'
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 
 class ViewContainer extends Component{
   render() {
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "stretch",
     backgroundColor:"white",
-  }
+    marginTop: (Platform.OS === 'ios') ? 20:0,
+  },
 })
 
 module.exports = ViewContainer

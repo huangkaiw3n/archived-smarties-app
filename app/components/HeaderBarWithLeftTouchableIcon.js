@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginTop: 20,
   },
 
   headerFooterBar: {
