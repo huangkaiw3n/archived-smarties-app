@@ -9,12 +9,19 @@ import { Fumi } from 'react-native-textinput-effects';
 class CreateNewAccScreen extends Component{
   constructor(props){
     super(props)
+    this.state = {
+      name: "",
+      email: "",
+      pass: "",
+      mobile: "",
+    }
   }
 
   _navigateToMapNaviScreen(){
     // resetTo(route) clears the existing route stack unlike push(route)
     this.props.navigator.resetTo({
       identifier:"MapNaviScreen",
+      userData:this.state,
     })
   }
 
@@ -33,6 +40,11 @@ class CreateNewAccScreen extends Component{
             iconName={'account-circle'}
             iconColor={'#f95a25'}
             keyboardType={'default'}
+            returnKeyType='next'
+            maxLength={50}
+            onChangeText={(name) => this.setState({name})}
+            value={this.state.name}
+            autoCorrect={false}
           />
           <Fumi
             style={{ marginTop: 3 }}
@@ -41,6 +53,11 @@ class CreateNewAccScreen extends Component{
             iconName={'email'}
             iconColor={'#f95a25'}
             keyboardType={'email-address'}
+            returnKeyType='next'
+            maxLength={50}
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
+            autoCorrect={false}
           />
           <Fumi
             style={{ marginTop: 3}}
@@ -50,6 +67,11 @@ class CreateNewAccScreen extends Component{
             iconColor={'#f95a25'}
             secureTextEntry={true}
             keyboardType={'default'}
+            returnKeyType='next'
+            maxLength={50}
+            onChangeText={(pass) => this.setState({pass})}
+            value={this.state.pass}
+            autoCorrect={false}
           />
           <Fumi
             style={{ marginTop: 3 }}
@@ -58,6 +80,11 @@ class CreateNewAccScreen extends Component{
             iconName={'smartphone'}
             iconColor={'#f95a25'}
             keyboardType={'numeric'}
+            returnKeyType='done'
+            maxLength={30}
+            onChangeText={(mobile) => this.setState({mobile})}
+            value={this.state.mobile}
+            autoCorrect={false}
           />
           <Text style={styles.genericText}>
             By creating an account, I agree to Streetsmart's

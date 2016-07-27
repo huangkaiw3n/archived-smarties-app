@@ -25,7 +25,7 @@ class StreetSmart extends Component {
       case "LoginScreen":
         return <LoginScreen {...globalNavigatorProps}/>
       case "MapNaviScreen":
-        return <MapNaviScreen {...globalNavigatorProps}/>
+        return <MapNaviScreen userData={route.userData} {...globalNavigatorProps}/>
       default:
         return <View style={{flex:1, color:"red"}}/>
       }
