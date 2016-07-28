@@ -1,7 +1,7 @@
 "use strict"
 import React, { Component } from "react"
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native"
-import Icon from "react-native-vector-icons/Entypo"
+import Entypo from "react-native-vector-icons/Entypo"
 
 class HeaderBarWithLeftTouchableIcon extends Component{
 
@@ -9,7 +9,7 @@ class HeaderBarWithLeftTouchableIcon extends Component{
     return (
       <View style={styles.viewContainerHeader}>
         <TouchableOpacity onPress={(event) => this._navigateToPrevScreen()} style={styles.headerFooterBar}>
-          <Icon name="chevron-thin-left" style={styles.chevronLeft}></Icon>
+          <Entypo name="chevron-thin-left" style={styles.chevronLeft}></Entypo>
         </TouchableOpacity>
         <Text style={styles.barText}>
           {this.props.children}

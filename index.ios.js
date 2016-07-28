@@ -11,6 +11,8 @@ import CreateNewAccScreen from "./app/screens/CreateNewAccScreen"
 import LoginScreen from "./app/screens/LoginScreen"
 import HeaderBarWithLeftTouchableIcon from "./app/components/HeaderBarWithLeftTouchableIcon"
 import MapNaviScreen from "./app/screens/MapNaviScreen"
+import AccountSetupVehicleScreen from "./app/screens/AccountSetupVehicleScreen"
+import AccountSetupPaymentScreen from "./app/screens/AccountSetupPaymentScreen"
 
 class StreetSmart extends Component {
 
@@ -25,7 +27,11 @@ class StreetSmart extends Component {
       case "LoginScreen":
         return <LoginScreen {...globalNavigatorProps}/>
       case "MapNaviScreen":
-        return <MapNaviScreen userData={route.userData} {...globalNavigatorProps}/>
+        return <MapNaviScreen userData={route.userData} isSetUp={route.isSetUp} {...globalNavigatorProps}/>
+      case "AccountSetupVehicleScreen":
+        return <AccountSetupVehicleScreen {...globalNavigatorProps}/>
+      case "AccountSetupPaymentScreen":
+          return <AccountSetupPaymentScreen vehicleData={route.vehicleData} {...globalNavigatorProps}/>
       default:
         return <View style={{flex:1, color:"red"}}/>
       }

@@ -28,7 +28,7 @@ class MapNaviScreen extends Component{
        alertMessage,
         [
           {text: "Not now"},
-          {text: "Yes", onPress: () => this.props.navigator.resetTo({identifier: "WelcomeScreen"})},
+          {text: "Yes", onPress: () => this.props.navigator.push({identifier: "AccountSetupVehicleScreen"})},
         ]
       )
     }

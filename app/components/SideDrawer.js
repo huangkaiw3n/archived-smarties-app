@@ -61,7 +61,7 @@ class SideDrawer extends Component{
             Credit Balance
           </Text>
           <Text style={[styles.labelsText, {color:"darkgrey"}]}>
-            $34.00
+            {/*credit balance amount here*/}
           </Text>
         </TouchableOpacity>
 
