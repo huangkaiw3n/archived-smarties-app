@@ -1,20 +1,25 @@
-'use strict'
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import ViewContainer from '../components/ViewContainer'
-import HeaderBarWithLeftTouchableIcon from '../components/HeaderBarWithLeftTouchableIcon'
-import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
-import { Fumi } from 'react-native-textinput-effects';
+"use strict"
+import React, { Component } from "react"
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import ViewContainer from "../components/ViewContainer"
+import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouchableIcon"
+import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
+import { Fumi } from "react-native-textinput-effects";
 
 class LoginScreen extends Component{
   constructor(props){
     super(props)
+    this.state = {
+      email: "",
+      pass: "",
+    }
   }
 
   _navigateToMapNaviScreen(){
     // resetTo(route) clears the existing route stack unlike push(route)
     this.props.navigator.resetTo({
       identifier:"MapNaviScreen",
+      userData:this.state,
     })
   }
 
@@ -29,20 +34,30 @@ class LoginScreen extends Component{
         <View style={{flex:9, justifyContent:"flex-start", }}>
           <Fumi
             style={{ marginTop: 3 }}
-            label={'Email'}
+            label={"Email"}
             iconClass={MaterialsIcon}
-            iconName={'email'}
-            iconColor={'#f95a25'}
-            keyboardType={'email-address'}
+            iconName={"email"}
+            iconColor={"#f95a25"}
+            keyboardType={"email-address"}
+            returnKeyType="next"
+            maxLength={50}
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
+            autoCorrect={false}
           />
           <Fumi
             style={{ marginTop: 3}}
-            label={'Password'}
+            label={"Password"}
             iconClass={MaterialsIcon}
-            iconName={'lock'}
-            iconColor={'#f95a25'}
+            iconName={"lock"}
+            iconColor={"#f95a25"}
             secureTextEntry={true}
-            keyboardType={'default'}
+            keyboardType={"default"}
+            returnKeyType="next"
+            maxLength={50}
+            onChangeText={(pass) => this.setState({pass})}
+            value={this.state.pass}
+            autoCorrect={false}
           />
         </View>
 

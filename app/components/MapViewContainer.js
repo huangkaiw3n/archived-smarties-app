@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import MapView from 'react-native-maps';
-import MaterialsIcon from 'react-native-vector-icons/MaterialIcons';
+import React, { Component } from "react"
+import { View, StyleSheet, Text } from "react-native"
+import MapView from "react-native-maps";
+import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 
 
 class MapViewContainer extends Component{
@@ -26,7 +26,7 @@ class MapViewContainer extends Component{
       <MapView
       style={styles.map}
       loadingEnabled={true}
-      loadingBackgroundColor='gainsboro'
+      loadingBackgroundColor="gainsboro"
       initialRegion={{latitude: 1.3521,
       longitude: 103.8198,
       latitudeDelta: 0.0922,
@@ -46,18 +46,18 @@ class MapViewContainer extends Component{
 const styles = StyleSheet.create({
 
   // container: {
-  //   position: 'absolute',
+  //   position: "absolute",
   //   top: 0,
   //   left: 0,
   //   right: 0,
   //   bottom: 0,
   //   height: 400,
   //   width: 400,
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'center',
+  //   justifyContent: "flex-end",
+  //   alignItems: "center",
   // },
   map: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,

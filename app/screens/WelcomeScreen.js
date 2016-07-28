@@ -1,8 +1,8 @@
-'use strict'
-import React, { Component } from 'react'
-import { Text, StyleSheet, TouchableOpacity } from 'react-native'
-import ViewContainer from '../components/ViewContainer'
-import Icon from 'react-native-vector-icons/FontAwesome'
+"use strict"
+import React, { Component } from "react"
+import { Text, StyleSheet, TouchableOpacity } from "react-native"
+import ViewContainer from "../components/ViewContainer"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 class WelcomeScreen extends Component{
   constructor(props){
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   welcomeTitle: {
     color: "steelblue",
     fontSize: 40,
-    fontWeight: '200',
+    fontWeight: "200",
     textAlign: "center",
   },
   carIcon: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   genericTextLink: {
     color: "steelblue",
     fontSize: 16,
-    fontWeight: '200',
+    fontWeight: "200",
     textAlign: "center",
     textDecorationLine: "underline",
     margin: 30,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   genericTextLinkBold: {
     color: "steelblue",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     textAlign: "center",
     textDecorationLine: "underline",
     margin: 30,

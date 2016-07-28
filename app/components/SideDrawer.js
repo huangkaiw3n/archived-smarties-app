@@ -1,13 +1,26 @@
-'use strict'
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
-import DrawerLayout from 'react-native-drawer-layout'
-import Icon from 'react-native-vector-icons/Entypo'
+"use strict"
+import React, { Component } from "react"
+import { View, Text, StyleSheet, TouchableOpacity, Platform, Alert, Navigator } from "react-native"
+import DrawerLayout from "react-native-drawer-layout"
+import Icon from "react-native-vector-icons/Entypo"
+
+const alertMessage = "Are you sure you want to log out?"
 
 class SideDrawer extends Component{
 
   openSideDrawer(){
-    this.refs['DRAWER_LAYOUT'].openDrawer()
+    this.refs["DRAWER_LAYOUT"].openDrawer()
+  }
+
+  _logOutHandler(){
+    Alert.alert(
+      "Are you sure?",
+     alertMessage,
+      [
+        {text: "Cancel"},
+        {text: "Yes", onPress: () => this.props.navigator.resetTo({identifier: "WelcomeScreen"})},
+      ]
+    )
   }
 
   render() {
@@ -17,7 +30,7 @@ class SideDrawer extends Component{
           USER
         </Text>
         <Text style={[styles.labelsText, {marginLeft: 15}]}>
-          huangkaiw3n@gmail.com
+          {this.props.userData.email}
         </Text>
         <Text style={styles.headingsText}>
           VEHICLE
@@ -68,7 +81,7 @@ class SideDrawer extends Component{
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+        <TouchableOpacity onPress={() => this._logOutHandler()} style={styles.sideTabs}>
           <Text style={styles.labelsText}>
             Log Out
           </Text>
@@ -79,7 +92,7 @@ class SideDrawer extends Component{
 
     return (
       <DrawerLayout
-      ref='DRAWER_LAYOUT'
+      ref="DRAWER_LAYOUT"
       drawerWidth={300}
       drawerPosition={DrawerLayout.positions.Left}
       renderNavigationView={() => sideDrawerView}>
@@ -99,18 +112,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginTop: (Platform.OS === 'ios') ? 20:0,
+    marginTop: (Platform.OS === "ios") ? 20:0,
   },
   headingsText: {
     marginLeft: 15,
     marginTop: 40,
     fontSize: 13,
-    textAlign: 'left',
+    textAlign: "left",
     color: "darkgrey",
   },
   labelsText: {
     fontSize: 13,
-    textAlign: 'left',
+    textAlign: "left",
     color: "black",
   },
   sideTabs: {

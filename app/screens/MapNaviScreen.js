@@ -1,10 +1,10 @@
-'use strict'
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import MapViewContainer from '../components/MapViewContainer';
-import ViewContainer from '../components/ViewContainer'
-import HeaderBarWithMenuIcon from '../components/HeaderBarWithMenuIcon'
-import SideDrawer from '../components/SideDrawer'
+"use strict"
+import React, { Component } from "react"
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native"
+import MapViewContainer from "../components/MapViewContainer";
+import ViewContainer from "../components/ViewContainer"
+import HeaderBarWithMenuIcon from "../components/HeaderBarWithMenuIcon"
+import SideDrawer from "../components/SideDrawer"
 
 class MapNaviScreen extends Component{
   constructor(props){
@@ -14,6 +14,24 @@ class MapNaviScreen extends Component{
     this.state = {
       roadname: "",
     }
+    this.defaultProps = {
+      isLoggedIn: false,
+      isSetUp: false,
+    }
+  }
+
+  componentDidMount(){
+    const alertMessage = "Would you like to set up Streetsmart now so that you can pay easily for your future parking?"
+    if (!this.isSetUp){
+      Alert.alert(
+        "Welcome to Streetsmart",
+       alertMessage,
+        [
+          {text: "Not now"},
+          {text: "Yes", onPress: () => this.props.navigator.resetTo({identifier: "WelcomeScreen"})},
+        ]
+      )
+    }
   }
 
   _updateSelectedRoad(roadname){
@@ -21,32 +39,32 @@ class MapNaviScreen extends Component{
   }
 
   _openSideDrawer(){
-    this.refs['SIDE_DRAWER'].openSideDrawer()
+    this.refs["SIDE_DRAWER"].openSideDrawer()
   }
 
   render() {
 
     return (
-      <SideDrawer ref='SIDE_DRAWER'>
-      <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
+      <SideDrawer navigator={this.props.navigator} userData={this.props.userData} ref="SIDE_DRAWER">
+        <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
 
-        <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator}>
-          STREETSMART
-        </HeaderBarWithMenuIcon>
+          <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator}>
+            STREETSMART
+          </HeaderBarWithMenuIcon>
 
-        <View style={{flex:9, justifyContent:"flex-start"}}>
+          <View style={{flex:9, justifyContent:"flex-start"}}>
 
-        <MapViewContainer handler={this._updateSelectedRoad}></MapViewContainer>
-        </View>
-        <Text style={{flex:0.5}}>{this.state.roadname}</Text>
+          <MapViewContainer handler={this._updateSelectedRoad}></MapViewContainer>
+          </View>
+          <Text style={{flex:0.5}}>{this.state.roadname}</Text>
 
-        <TouchableOpacity onPress={(event) => this.onClick} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
-          <Text style={styles.barText}>
-            PARK HERE
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={(event) => this.onClick} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+            <Text style={styles.barText}>
+              PARK HERE
+            </Text>
+          </TouchableOpacity>
 
-      </ViewContainer>
+        </ViewContainer>
       </SideDrawer>
     )
   }

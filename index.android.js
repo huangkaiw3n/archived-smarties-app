@@ -4,13 +4,13 @@
  * @flow
  */
 
-import React, { Component } from 'react'
-import { View, AppRegistry, StyleSheet, Text, Navigator } from 'react-native';
-import WelcomeScreen from './app/screens/WelcomeScreen'
-import CreateNewAccScreen from './app/screens/CreateNewAccScreen'
-import LoginScreen from './app/screens/LoginScreen'
-import HeaderBarWithLeftTouchableIcon from './app/components/HeaderBarWithLeftTouchableIcon'
-import MapNaviScreen from './app/screens/MapNaviScreen'
+import React, { Component } from "react"
+import { View, AppRegistry, StyleSheet, Text, Navigator } from "react-native";
+import WelcomeScreen from "./app/screens/WelcomeScreen"
+import CreateNewAccScreen from "./app/screens/CreateNewAccScreen"
+import LoginScreen from "./app/screens/LoginScreen"
+import HeaderBarWithLeftTouchableIcon from "./app/components/HeaderBarWithLeftTouchableIcon"
+import MapNaviScreen from "./app/screens/MapNaviScreen"
 
 class StreetSmart extends Component {
 
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('StreetSmart', () => StreetSmart);
+AppRegistry.registerComponent("StreetSmart", () => StreetSmart);
