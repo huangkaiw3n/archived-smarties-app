@@ -11,6 +11,7 @@
     "react-native": "^0.30.0",
     "react-native-drawer-layout": "^1.0.0",
     "react-native-maps": "^0.7.1",
+    "react-native-simple-modal": "^4.0.1",
     "react-native-textinput-effects": "^0.1.2",
     "react-native-vector-icons": "^2.0.3"
   },

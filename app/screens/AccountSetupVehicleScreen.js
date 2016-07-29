@@ -5,6 +5,7 @@ import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouchableIcon"
 import EvilIcons from "react-native-vector-icons/EvilIcons"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import Modal from 'react-native-simple-modal';
 
 class AccountSetupVehicleScreen extends Component{
   constructor(props){
@@ -13,6 +14,7 @@ class AccountSetupVehicleScreen extends Component{
       vehicleNo: "",
       isCarSelected:true,
       isBikeSelected:false,
+      open: false,
     }
   }
 
@@ -66,7 +68,7 @@ class AccountSetupVehicleScreen extends Component{
             VEHICLE NO.
           </Text>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+          <TouchableOpacity onPress={() => this.setState({open: true})} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Vehicle No.
             </Text>
@@ -105,6 +107,32 @@ class AccountSetupVehicleScreen extends Component{
           </Text>
         </TouchableOpacity>
 
+        <Modal
+        offset={this.state.offset}
+        open={this.state.open}
+        overlayBackground="rgba(0, 0, 0, 0.5)"
+        modalDidOpen={() => console.log('modal did open')}
+        modalDidClose={() => this.setState({open: false})}
+        style={{alignItems: 'center'}}>
+          <View>
+            <Text style={{fontSize: 20, marginBottom: 10}}>Hello world!</Text>
+            <TouchableOpacity
+               style={{margin: 5}}
+               onPress={() => this.setState({offset: -100})}>
+               <Text>Move modal up</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+               style={{margin: 5}}
+               onPress={() => this.setState({offset: 0})}>
+               <Text>Reset modal position</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+               style={{margin: 5}}
+               onPress={() => this.setState({open: false})}>
+               <Text>Close modal</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </ViewContainer>
 
     )
