@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
     borderColor: "whitesmoke",
     borderTopColor: "white",
     borderBottomColor: "white",
-    backgroundColor: "white",
     paddingLeft: 15,
     flexDirection: "row",
     justifyContent: "flex-start",
