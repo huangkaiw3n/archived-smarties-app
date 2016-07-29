@@ -30,6 +30,12 @@ class WelcomeScreen extends Component{
           </Text>
         </TouchableOpacity>
 
+        <TouchableOpacity style={styles.skipButton} onPress={(event) => this._navigateToMapNaviScreen()}>
+          <Text style={[styles.genericTextLink, {fontSize:20}]}>
+            SKIP
+          </Text>
+        </TouchableOpacity>
+
       </ViewContainer>
 
     )
@@ -44,6 +50,16 @@ class WelcomeScreen extends Component{
   _navigateToLoginScreen(){
     this.props.navigator.push({
       identifier:"LoginScreen"
+    })
+  }
+
+  _navigateToMapNaviScreen(){
+    // resetTo(route) clears the existing route stack unlike push(route)
+    this.props.navigator.push({
+      identifier:"MapNaviScreen",
+      userData: {},
+      isLoggedIn: false,
+      isSetUp: false,
     })
   }
 
@@ -95,6 +111,11 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     margin: 30,
   },
+  skipButton: {
+    position: "absolute",
+    right: 10,
+    bottom:10,
+  }
 })
 
 module.exports = WelcomeScreen
