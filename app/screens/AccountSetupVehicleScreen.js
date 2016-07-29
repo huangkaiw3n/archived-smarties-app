@@ -11,7 +11,8 @@ class AccountSetupVehicleScreen extends Component{
     super(props)
     this.state = {
       vehicleNo: "",
-      vehicleType: "",
+      isCarSelected:true,
+      isBikeSelected:false,
     }
   }
 
@@ -22,6 +23,26 @@ class AccountSetupVehicleScreen extends Component{
       vehicleData:this.state,
     })
   }
+
+  _toggleSelectedVehicle() {
+    this.setState({
+      isCarSelected: !this.state.isCarSelected,
+      isBikeSelected: !this.state.isBikeSelected,
+    })
+  }
+
+  _motorCarPressed(){
+    if (!this.state.isCarSelected){
+      this._toggleSelectedVehicle()
+    }
+  }
+
+  _motorBikePressed(){
+    if (!this.state.isBikeSelected){
+      this._toggleSelectedVehicle()
+    }
+  }
+
 
   render() {
     return (
@@ -57,18 +78,24 @@ class AccountSetupVehicleScreen extends Component{
             VEHICLE TYPE
           </Text>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+          <TouchableOpacity onPress={()=>this._motorCarPressed()} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Motor Car
             </Text>
-            <EvilIcons name="check" style={styles.check}></EvilIcons>
+            <EvilIcons
+            name="check"
+            style={[styles.check, this.state.isCarSelected ? {opacity:1} : {opacity:0}]}>
+            </EvilIcons>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+          <TouchableOpacity onPress={()=>this._motorBikePressed()} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Motor Bike
             </Text>
-            {/*<EvilIcons name="check" style={styles.check}></EvilIcons>*/}
+            <EvilIcons
+            name="check"
+            style={[styles.check, this.state.isBikeSelected ? {opacity:1} : {opacity:0}]}>
+            </EvilIcons>
           </TouchableOpacity>
         </View>
 
