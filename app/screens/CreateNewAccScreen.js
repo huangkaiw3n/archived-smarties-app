@@ -85,7 +85,7 @@ class CreateNewAccScreen extends Component{
 
         <TouchableOpacity onPress={(event) => this._navigateToMapNaviScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
-            LET"S GET STARTED
+            LET'S GET STARTED
           </Text>
         </TouchableOpacity>
 

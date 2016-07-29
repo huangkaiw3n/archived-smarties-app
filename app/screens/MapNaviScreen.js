@@ -17,21 +17,26 @@ class MapNaviScreen extends Component{
     this.defaultProps = {
       isLoggedIn: false,
       isSetUp: false,
+      userData: undefined,
     }
   }
 
   componentDidMount(){
-    const alertMessage = "Would you like to set up Streetsmart now so that you can pay easily for your future parking?"
     if (!this.isSetUp){
-      Alert.alert(
-        "Welcome to Streetsmart",
-       alertMessage,
-        [
-          {text: "Not now"},
-          {text: "Yes", onPress: () => this.props.navigator.push({identifier: "AccountSetupVehicleScreen"})},
-        ]
-      )
+      this._alertSetUp()
     }
+  }
+
+  _alertSetUp(){
+    const alertMessage = "Would you like to set up Streetsmart now so that you can pay easily for your future parking?"
+    Alert.alert(
+      "Welcome to Streetsmart",
+     alertMessage,
+      [
+        {text: "Not now"},
+        {text: "Yes", onPress: () => this.props.navigator.push({identifier: "AccountSetupVehicleScreen"})},
+      ]
+    )
   }
 
   _updateSelectedRoad(roadname){
