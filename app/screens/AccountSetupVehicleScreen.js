@@ -1,6 +1,6 @@
 "use strict"
 import React, { Component } from "react"
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert , Platform} from "react-native"
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouchableIcon"
 import EvilIcons from "react-native-vector-icons/EvilIcons"
@@ -86,14 +86,14 @@ class AccountSetupVehicleScreen extends Component{
             <Text style={[styles.labelsText, {flex:4}]}>
               Vehicle No.
             </Text>
-            <TextInput
-            style={[styles.labelsText, {flex:3, borderColor: "darkgrey", borderWidth: 1, paddingLeft:4}]}
-            onChangeText={(vehicleNo) => this.setState({vehicleNo})}
-            value={this.state.text}
-            defaultValue=""/>
-            <Text style={[styles.labelsText, {color:"darkgrey"}]}>
-
-            </Text>
+            <View style={{flex:4, borderColor: "darkgrey", borderWidth: 1, paddingLeft:4}}>
+              <TextInput
+              style={[styles.labelsText, {flex:1}]}
+              underlineColorAndroid="transparent"
+              onChangeText={(vehicleNo) => this.setState({vehicleNo})}
+              value={this.state.text}
+              defaultValue=""/>
+            </View>
           </View>
           <Text style={styles.headingsText}>
             VEHICLE TYPE
