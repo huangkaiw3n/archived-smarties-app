@@ -1,6 +1,6 @@
 "use strict"
 import React, { Component } from "react"
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from "react-native"
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouchableIcon"
 import EvilIcons from "react-native-vector-icons/EvilIcons"
@@ -16,12 +16,28 @@ class AccountSetupVehicleScreen extends Component{
     }
   }
 
+  _alertVehicleNo(){
+    const alertMessage = "Please key in your license plate number."
+    Alert.alert(
+      "Invalid Vehicle Information",
+     alertMessage,
+      [
+        {text: "Okay"},
+      ]
+    )
+  }
+
   _navigateToAccountSetupPaymentScreen(){
     // resetTo(route) clears the existing route stack unlike push(route)
-    this.props.navigator.push({
-      identifier:"AccountSetupPaymentScreen",
-      vehicleData:this.state,
-    })
+    if (this.state.vehicleNo === ""){
+      this._alertVehicleNo()
+    }
+    else{
+      this.props.navigator.props.updateVehicleData(this.state)
+      this.props.navigator.push({
+        identifier:"AccountSetupPaymentScreen",
+      })
+    }
   }
 
   _toggleSelectedVehicle() {

@@ -18,77 +18,100 @@ class SideDrawer extends Component{
      alertMessage,
       [
         {text: "Cancel"},
-        {text: "Yes", onPress: () => this.props.navigator.resetTo({identifier: "WelcomeScreen"})},
+        {text: "Yes", onPress: () => {
+          this.props.navigator.resetTo({identifier: "WelcomeScreen"})}
+        },
       ]
     )
   }
 
   render() {
-    var sideDrawerView = (
-      <View style={styles.sideDrawerView}>
-        <Text style={styles.headingsText}>
-          USER
-        </Text>
-        <Text style={[styles.labelsText, {marginLeft: 15}]}>
-          {this.props.userData.email}
-        </Text>
-        <Text style={styles.headingsText}>
-          VEHICLE
-        </Text>
 
-        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-          <Text style={[styles.labelsText, {flex:4}]}>
-            Vehicle No.
+    if (this.props.navigator.props.userData === null){
+      var sideDrawerView = (
+        <View style={styles.sideDrawerView}>
+          <Text style={styles.headingsText}>
+            ACCOUNT
           </Text>
-          <Text style={[styles.labelsText, {color:"darkgrey"}]}>
-            SKL4231M
+
+          <TouchableOpacity onPress={(event) => this.props.navigator.resetTo({identifier: "WelcomeScreen"})} style={[styles.sideTabs, {marginTop:10}]}>
+            <Text style={styles.labelsText}>
+            Log in or create a new account
+            </Text>
+          </TouchableOpacity>
+
+        </View>
+      );
+
+    }
+    else{
+      var sideDrawerView = (
+        <View style={styles.sideDrawerView}>
+          <Text style={styles.headingsText}>
+            USER
           </Text>
-          <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-          <Text style={styles.labelsText}>
-            Parking History
+          <Text style={[styles.labelsText, {marginLeft: 15}]}>
+            {this.props.navigator.props.userData.email}
           </Text>
-        </TouchableOpacity>
-
-        <Text style={styles.headingsText}>
-          PAYMENT
-        </Text>
-
-        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-          <Text style={[styles.labelsText, {flex:4}]}>
-            Credit Balance
+          <Text style={styles.headingsText}>
+            VEHICLE
           </Text>
-          <Text style={[styles.labelsText, {color:"darkgrey"}]}>
-            {/*credit balance amount here*/}
+
+          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+            <Text style={[styles.labelsText, {flex:4}]}>
+              Vehicle No.
+            </Text>
+            <Text style={[styles.labelsText, {color:"darkgrey"}]}>
+              {this.props.navigator.props.vehicleData ? this.props.navigator.props.vehicleData.vehicleNo : ""}
+            </Text>
+            <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+            <Text style={styles.labelsText}>
+              Parking History
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={styles.headingsText}>
+            PAYMENT
           </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-          <Text style={styles.labelsText}>
-            Top Up Credit
+          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+            <Text style={[styles.labelsText, {flex:4}]}>
+              Credit Balance
+            </Text>
+            <Text style={[styles.labelsText, {color:"darkgrey"}]}>
+              {/*credit balance amount here*/}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+            <Text style={styles.labelsText}>
+              Top Up Credit
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={styles.headingsText}>
+            ACCOUNT
           </Text>
-        </TouchableOpacity>
 
-        <Text style={styles.headingsText}>
-          ACCOUNT
-        </Text>
+          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+            <Text style={styles.labelsText}>
+              Change Password
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-          <Text style={styles.labelsText}>
-            Change Password
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => this._logOutHandler()} style={styles.sideTabs}>
+            <Text style={styles.labelsText}>
+              Log Out
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => this._logOutHandler()} style={styles.sideTabs}>
-          <Text style={styles.labelsText}>
-            Log Out
-          </Text>
-        </TouchableOpacity>
+        </View>
+      );
+    }
 
-      </View>
-    );
 
     return (
       <DrawerLayout

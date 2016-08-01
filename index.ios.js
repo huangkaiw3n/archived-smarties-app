@@ -16,6 +16,31 @@ import AccountSetupPaymentScreen from "./app/screens/AccountSetupPaymentScreen"
 
 class StreetSmart extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      userData: null,
+      vehicleData: null,
+    }
+    this._updateUserData = this._updateUserData.bind(this)
+    this._updateVehicleData = this._updateVehicleData.bind(this)
+    this._clearData = this._clearData.bind(this)
+
+  }
+
+  _updateUserData(userData){
+    this.setState({ userData })
+  }
+
+  _updateVehicleData(vehicleData){
+    this.setState({ vehicleData })
+  }
+
+  _clearData(){
+    this._updateUserData(null)
+    this._updateVehicleData(null)
+  }
+
   _renderScene(route, navigator){
     var globalNavigatorProps = { navigator }
 
@@ -27,11 +52,11 @@ class StreetSmart extends Component {
       case "LoginScreen":
         return <LoginScreen {...globalNavigatorProps}/>
       case "MapNaviScreen":
-        return <MapNaviScreen userData={route.userData} isSetUp={route.isSetUp} {...globalNavigatorProps}/>
+        return <MapNaviScreen {...globalNavigatorProps}/>
       case "AccountSetupVehicleScreen":
         return <AccountSetupVehicleScreen {...globalNavigatorProps}/>
       case "AccountSetupPaymentScreen":
-          return <AccountSetupPaymentScreen vehicleData={route.vehicleData} {...globalNavigatorProps}/>
+          return <AccountSetupPaymentScreen {...globalNavigatorProps}/>
       default:
         return <View style={{flex:1, color:"red"}}/>
       }
@@ -43,11 +68,16 @@ class StreetSmart extends Component {
       <Navigator
         initialRoute = {{identifier: "WelcomeScreen"}}
         ref="appNavigator"
+        userData = {this.state.userData}
+        vehicleData = {this.state.vehicleData}
+        updateUserData={this._updateUserData}
+        updateVehicleData={this._updateVehicleData}
+        clearData={this._clearData}
         style={styles.navigatorStyles}
         renderScene={this._renderScene}
         configureScene={(route)=> ({
           ...route.sceneConfig || Navigator.SceneConfigs.PushFromRight})} />
-    );
+    )
   }
 }
 

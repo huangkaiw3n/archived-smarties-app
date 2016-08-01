@@ -1,6 +1,6 @@
 "use strict"
 import React, { Component } from "react"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouchableIcon"
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
@@ -16,11 +16,27 @@ class LoginScreen extends Component{
   }
 
   _navigateToMapNaviScreen(){
+    if (this.state.email === "" || this.state.pass === ""){
+      this._alertEmptyFields()
+    }
+    else{
     // resetTo(route) clears the existing route stack unlike push(route)
+    this.props.navigator.props.updateUserData(this.state)
     this.props.navigator.resetTo({
       identifier:"MapNaviScreen",
-      userData:this.state,
-    })
+      })
+    }
+  }
+
+  _alertEmptyFields(){
+    const alertMessage = "Please enter a valid account"
+    Alert.alert(
+      "Invalid Account Information",
+     alertMessage,
+      [
+        {text: "Okay"},
+      ]
+    )
   }
 
   render() {

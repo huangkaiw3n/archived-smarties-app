@@ -1,12 +1,13 @@
 "use strict"
 import React, { Component } from "react"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouchableIcon"
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 import { Fumi } from "react-native-textinput-effects";
 
 class CreateNewAccScreen extends Component{
+
   constructor(props){
     super(props)
     this.state = {
@@ -17,11 +18,27 @@ class CreateNewAccScreen extends Component{
   }
 
   _navigateToMapNaviScreen(){
+    if (this.state.email === "" || this.state.pass === "" || this.state.mobile === ""){
+      this._alertEmptyFields()
+    }
+    else{
     // resetTo(route) clears the existing route stack unlike push(route)
+    this.props.navigator.props.updateUserData(this.state)
     this.props.navigator.resetTo({
       identifier:"MapNaviScreen",
-      userData:this.state,
-    })
+      })
+    }
+  }
+
+  _alertEmptyFields(){
+    const alertMessage = "Please fill up all fields"
+    Alert.alert(
+      "Invalid Personal Information",
+     alertMessage,
+      [
+        {text: "Okay"},
+      ]
+    )
   }
 
   render() {

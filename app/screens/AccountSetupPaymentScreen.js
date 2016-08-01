@@ -9,19 +9,11 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 class AccountSetupPaymentScreen extends Component{
   constructor(props){
     super(props)
-    this.state = {
-      vehicleNo: "",
-      vehicleType: "",
-    }
   }
 
   _navigateToMapNaviScreen(){
-    // resetTo(route) clears the existing route stack unlike push(route)
-    var currentRoutes = this.props.navigator.getCurrentRoutes()
-    this.props.navigator.push({
+    this.props.navigator.resetTo({
       identifier:"MapNaviScreen",
-      vehicleData:this.props.vehicleData,
-      isSetUp:true,
     })
   }
 

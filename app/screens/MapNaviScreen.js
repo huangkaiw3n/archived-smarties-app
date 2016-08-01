@@ -14,15 +14,10 @@ class MapNaviScreen extends Component{
     this.state = {
       roadname: "",
     }
-    this.defaultProps = {
-      isLoggedIn: false,
-      isSetUp: false,
-      userData: undefined,
-    }
   }
 
   componentDidMount(){
-    if (!this.isSetUp){
+    if (!this.props.navigator.props.vehicleData && this.props.navigator.props.userData){
       this._alertSetUp()
     }
   }
@@ -50,7 +45,7 @@ class MapNaviScreen extends Component{
   render() {
 
     return (
-      <SideDrawer navigator={this.props.navigator} userData={this.props.userData} ref="SIDE_DRAWER">
+      <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER">
         <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
 
           <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator}>

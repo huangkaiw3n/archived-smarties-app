@@ -9,6 +9,10 @@ class WelcomeScreen extends Component{
     super(props)
   }
 
+  componentDidMount(){
+    this.props.navigator.props.clearData()
+  }
+
   render() {
     return (
       <ViewContainer style={{alignItems: "center", justifyContent: "center"}}>
@@ -57,9 +61,6 @@ class WelcomeScreen extends Component{
     // resetTo(route) clears the existing route stack unlike push(route)
     this.props.navigator.push({
       identifier:"MapNaviScreen",
-      userData: {},
-      isLoggedIn: false,
-      isSetUp: false,
     })
   }
 
