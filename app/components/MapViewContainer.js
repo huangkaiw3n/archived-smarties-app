@@ -3,15 +3,14 @@ import { View, StyleSheet, Text } from "react-native"
 import MapView from "react-native-maps";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 
-
 class MapViewContainer extends Component{
 
   constructor(props){
     super(props)
     this.state = {
       pinCoordinate: {
-        latitude: 1.3521,
-        longitude: 103.8198,
+        latitude: this.props.userLocation.latitude,
+        longitude: this.props.userLocation.longitude,
       }
     }
   }
@@ -25,13 +24,16 @@ class MapViewContainer extends Component{
     return (
       <MapView
       style={styles.map}
+      initialRegion={{
+        latitude: this.state.pinCoordinate.latitude,
+        longitude: this.state.pinCoordinate.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}
       showsUserLocation={true}
       loadingEnabled={true}
       loadingBackgroundColor="gainsboro"
-      initialRegion={{latitude: 1.3521,
-      longitude: 103.8198,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421}}>
+      >
         <MapView.Marker draggable
         coordinate={this.state.pinCoordinate}
         pinColor = {"steelblue"}

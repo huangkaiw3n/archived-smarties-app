@@ -54,7 +54,7 @@ class MapNaviScreen extends Component{
 
           <View style={{flex:9, justifyContent:"flex-start"}}>
 
-          <MapViewContainer handler={this._updateSelectedRoad}></MapViewContainer>
+          <MapViewContainer userLocation={this.props.navigator.props.userLocation} handler={this._updateSelectedRoad}></MapViewContainer>
           </View>
           <Text style={{flex:0.5}}>{this.state.roadname}</Text>
 

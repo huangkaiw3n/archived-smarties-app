@@ -13,6 +13,7 @@ import HeaderBarWithLeftTouchableIcon from "./app/components/HeaderBarWithLeftTo
 import MapNaviScreen from "./app/screens/MapNaviScreen"
 import AccountSetupVehicleScreen from "./app/screens/AccountSetupVehicleScreen"
 import AccountSetupPaymentScreen from "./app/screens/AccountSetupPaymentScreen"
+import Geolocation from "Geolocation"
 
 class StreetSmart extends Component {
 
@@ -21,11 +22,28 @@ class StreetSmart extends Component {
     this.state = {
       userData: null,
       vehicleData: null,
+      userLocation: null,
+      lastPosition: null,
     }
     this._updateUserData = this._updateUserData.bind(this)
     this._updateVehicleData = this._updateVehicleData.bind(this)
     this._clearData = this._clearData.bind(this)
+  }
 
+  componentWillMount(){
+    Geolocation.getCurrentPosition(
+     (position) => {
+       let latLon = { latitude:position.coords.latitude,
+                      longitude:position.coords.longitude}
+       this.setState({ userLocation: latLon })
+     },
+     (error) => alert(error.message),
+    //  {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+   )
+   this.watchID = Geolocation.watchPosition((position) => {
+     var lastPosition = JSON.stringify(position);
+     this.setState({lastPosition});
+   })
   }
 
   _updateUserData(userData){
@@ -70,6 +88,7 @@ class StreetSmart extends Component {
         ref="appNavigator"
         userData = {this.state.userData}
         vehicleData = {this.state.vehicleData}
+        userLocation = {this.state.userLocation}
         updateUserData={this._updateUserData}
         updateVehicleData={this._updateVehicleData}
         clearData={this._clearData}
