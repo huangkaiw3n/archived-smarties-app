@@ -86,12 +86,12 @@ class AccountSetupVehicleScreen extends Component{
             <Text style={[styles.labelsText, {flex:4}]}>
               Vehicle No.
             </Text>
-            <View style={{flex:4, borderColor: "darkgrey", borderWidth: 1, paddingLeft:4}}>
+            <View style={{flex:4, alignSelf:"stretch", borderColor: "darkgrey", borderLeftWidth: 1, paddingLeft:8}}>
               <TextInput
-              style={[styles.labelsText, {flex:1}]}
+              style={[styles.labelsText, {flex:1, padding:0}]}
               underlineColorAndroid="transparent"
               onChangeText={(vehicleNo) => this.setState({vehicleNo})}
-              value={this.state.text}
+              value={this.state.vehicleNo}
               defaultValue=""/>
             </View>
           </View>
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "whitesmoke",
     backgroundColor: "white",
-    padding: 10,
     paddingLeft: 15,
     paddingRight: 15,
     flexDirection: "row",

@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "whitesmoke",
     backgroundColor: "white",
-    padding: 10,
     paddingLeft: 15,
     paddingRight: 15,
     flexDirection: "row",
