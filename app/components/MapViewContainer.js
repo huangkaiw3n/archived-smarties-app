@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, StyleSheet, Text } from "react-native"
+import { View, StyleSheet, Text , Platform} from "react-native"
 import MapView from "react-native-maps";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 
@@ -17,7 +17,23 @@ class MapViewContainer extends Component{
 
   _handleSelectedLoc(e){
     this.setState({ pinCoordinate: e.nativeEvent.coordinate })
-    this.props.handler(`Lat:${this.state.pinCoordinate.latitude} , Lon:${this.state.pinCoordinate.longitude}`)
+    this.getStreetNameFromApi()
+    // this.props.handler(`Lat:${this.state.pinCoordinate.latitude} , Lon:${this.state.pinCoordinate.longitude}`)
+  }
+
+  async getStreetNameFromApi() {
+    try {
+      let address = "https://maps.googleapis.com/maps/api/geocode/json?latlng="
+      let latlng = this.state.pinCoordinate.latitude.toString() + "," + this.state.pinCoordinate.longitude.toString()
+      let restrict = "&result_type=street_address"
+      let apiKey = "&key=AIzaSyDO62FsyZlVzkcrtk1R0DKu9wXwMWlqK90"
+      console.log(address+latlng+restrict+apiKey)
+      let response = await fetch(address+latlng+restrict+apiKey)
+      let responseJson = await response.json()
+      this.props.handler(responseJson.results[0].formatted_address + responseJson.status)
+    } catch(error) {
+      this.props.handler(error)
+    }
   }
 
   render() {
@@ -31,6 +47,7 @@ class MapViewContainer extends Component{
         longitudeDelta: 0.0421,
       }}
       showsUserLocation={true}
+      followsUserLocation={true}
       loadingEnabled={true}
       loadingBackgroundColor="gainsboro"
       >
@@ -40,6 +57,7 @@ class MapViewContainer extends Component{
         onDragEnd={(event) => this._handleSelectedLoc(event)}>
         {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
           {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
+          {(Platform.OS === "android") ? <MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />: null}
         </MapView.Marker>
       </MapView>
     )
