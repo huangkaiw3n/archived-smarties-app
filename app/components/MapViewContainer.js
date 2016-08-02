@@ -30,10 +30,14 @@ class MapViewContainer extends Component{
       console.log(address+latlng+restrict+apiKey)
       let response = await fetch(address+latlng+restrict+apiKey)
       let responseJson = await response.json()
-      this.props.handler(responseJson.results[0].formatted_address + responseJson.status)
+      this.props.handler(responseJson.results[0].formatted_address)
     } catch(error) {
       this.props.handler(error)
     }
+  }
+
+  componentWillMount(){
+    this.getStreetNameFromApi()
   }
 
   render() {
