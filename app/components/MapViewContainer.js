@@ -25,6 +25,7 @@ class MapViewContainer extends Component{
     return (
       <MapView
       style={styles.map}
+      showsUserLocation={true}
       loadingEnabled={true}
       loadingBackgroundColor="gainsboro"
       initialRegion={{latitude: 1.3521,

@@ -91,7 +91,7 @@ class CreateNewAccScreen extends Component{
             autoCorrect={false}
           />
           <Text style={styles.genericText}>
-            By creating an account, I agree to Streetsmart"s
+            By creating an account, I agree to Streetsmart's
           </Text>
           <TouchableOpacity>
             <Text style={styles.genericTextLink}>
