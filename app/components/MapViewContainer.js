@@ -16,19 +16,20 @@ class MapViewContainer extends Component{
   }
 
   _handleSelectedLoc(e){
+    console.log("Moved Pin Coord: ")
+    console.log(e.nativeEvent.coordinate)
     this.setState({ pinCoordinate: e.nativeEvent.coordinate })
-    this.getStreetNameFromApi()
+    this.getStreetNameFromApi(e.nativeEvent.coordinate)
     // this.props.handler(`Lat:${this.state.pinCoordinate.latitude} , Lon:${this.state.pinCoordinate.longitude}`)
   }
 
-  async getStreetNameFromApi() {
+  async getStreetNameFromApi(coordinate) {
     try {
       let address = "https://maps.googleapis.com/maps/api/geocode/json?latlng="
-      let latlng = this.state.pinCoordinate.latitude.toString() + "," + this.state.pinCoordinate.longitude.toString()
-      let restrict = "&result_type=street_address"
+      let latlng = coordinate.latitude.toString() + "," + coordinate.longitude.toString()
       let apiKey = "&key=AIzaSyDO62FsyZlVzkcrtk1R0DKu9wXwMWlqK90"
-      console.log(address+latlng+restrict+apiKey)
-      let response = await fetch(address+latlng+restrict+apiKey)
+      console.log(address+latlng+apiKey)
+      let response = await fetch(address+latlng+apiKey)
       let responseJson = await response.json()
       this.props.handler(responseJson.results[0].formatted_address)
     } catch(error) {
@@ -37,7 +38,7 @@ class MapViewContainer extends Component{
   }
 
   componentWillMount(){
-    this.getStreetNameFromApi()
+    this.getStreetNameFromApi(this.state.pinCoordinate)
   }
 
   render() {
