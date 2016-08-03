@@ -13,6 +13,7 @@ class MapNaviScreen extends Component{
     this._openSideDrawer = this._openSideDrawer.bind(this)
     this.state = {
       roadname: "",
+      openBottomDrawer:false,
     }
   }
 
@@ -42,6 +43,11 @@ class MapNaviScreen extends Component{
     this.refs["SIDE_DRAWER"].openSideDrawer()
   }
 
+  _parkHereButtonHandler(){
+    let toggleDrawerState = !this.state.openBottomDrawer
+    this.setState( {openBottomDrawer:toggleDrawerState} )
+  }
+
   render() {
 
     return (
@@ -53,12 +59,15 @@ class MapNaviScreen extends Component{
           </HeaderBarWithMenuIcon>
 
           <View style={{flex:9, justifyContent:"flex-start"}}>
-
-          <MapViewContainer userLocation={this.props.navigator.props.userLocation} handler={this._updateSelectedRoad}></MapViewContainer>
+            <MapViewContainer
+            style={{flex:9}}
+            userLocation={this.props.navigator.props.userLocation}
+            handler={this._updateSelectedRoad}>
+            </MapViewContainer>
+            <Text style={(this.state.openBottomDrawer) ? {flex:5} : {flex:0.7}}>{this.state.roadname}</Text>
           </View>
-          <Text style={{flex:0.5}}>{this.state.roadname}</Text>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+          <TouchableOpacity onPress={(event) => this._parkHereButtonHandler()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
             <Text style={styles.barText}>
               PARK HERE
             </Text>

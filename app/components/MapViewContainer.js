@@ -43,45 +43,38 @@ class MapViewContainer extends Component{
 
   render() {
     return (
-      <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: this.state.pinCoordinate.latitude,
-        longitude: this.state.pinCoordinate.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
-      showsUserLocation={true}
-      followsUserLocation={true}
-      loadingEnabled={true}
-      loadingBackgroundColor="gainsboro"
-      >
-        <MapView.Marker draggable
-        coordinate={this.state.pinCoordinate}
-        pinColor = {"steelblue"}
-        onDragEnd={(event) => this._handleSelectedLoc(event)}>
-        {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
-          {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
-          {(Platform.OS === "android") ? <MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />: null}
-        </MapView.Marker>
-      </MapView>
+      <View style={[styles.mapWrapperView, this.props.style || {}]}>
+        <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: this.state.pinCoordinate.latitude,
+          longitude: this.state.pinCoordinate.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        showsUserLocation={true}
+        followsUserLocation={true}
+        loadingEnabled={true}
+        loadingBackgroundColor="gainsboro"
+        >
+          <MapView.Marker draggable
+          coordinate={this.state.pinCoordinate}
+          pinColor = {"steelblue"}
+          onDragEnd={(event) => this._handleSelectedLoc(event)}>
+          {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
+            {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
+            {(Platform.OS === "android") ? <MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />: null}
+          </MapView.Marker>
+        </MapView>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-
-  // container: {
-  //   position: "absolute",
-  //   top: 0,
-  //   left: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   height: 400,
-  //   width: 400,
-  //   justifyContent: "flex-end",
-  //   alignItems: "center",
-  // },
+  mapWrapperView: {
+    flex: 1,
+  },
   map: {
     position: "absolute",
     top: 0,
