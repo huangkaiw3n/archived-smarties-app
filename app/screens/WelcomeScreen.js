@@ -92,13 +92,13 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: "200",
     textAlign: "center",
   },
   genericTextLink: {
     color: "steelblue",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "200",
     textAlign: "center",
     textDecorationLine: "underline",
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   genericTextLinkBold: {
     color: "steelblue",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
     textDecorationLine: "underline",

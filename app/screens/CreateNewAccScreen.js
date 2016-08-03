@@ -123,20 +123,20 @@ const styles = StyleSheet.create({
   },
   barText: {
     color: "white",
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: "200",
     textAlign: "center",
     letterSpacing: 0.8,
   },
   genericText: {
     color: "steelblue",
-    fontSize: 14,
+    fontSize: 18,
     textAlign: "center",
     marginTop: 30,
   },
   genericTextLink: {
     color: "steelblue",
-    fontSize: 14,
+    fontSize: 18,
     textAlign: "center",
     textDecorationLine: "underline",
   },

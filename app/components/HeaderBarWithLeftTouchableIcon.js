@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flex:10,
     backgroundColor: "steelblue",
     color: "white",
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: "200",
     textAlign: "center",
     letterSpacing: 0.8,

@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   barText: {
     color: "white",
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: "200",
     textAlign: "center",
     letterSpacing: 0.8,
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
   headingsText: {
     marginLeft: 15,
     marginTop: 40,
-    fontSize: 13,
+    fontSize: 15,
     textAlign: "left",
     color: "darkgrey",
   },
   labelsText: {
-    fontSize: 13,
+    fontSize: 15,
     textAlign: "left",
     color: "black",
   },
