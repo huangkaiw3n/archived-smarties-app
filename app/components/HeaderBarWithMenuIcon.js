@@ -8,7 +8,7 @@ class HeaderBarWithMenuIcon extends Component{
   render() {
     return (
       <View style={styles.viewContainerHeader}>
-        <TouchableOpacity onPress={(event) => this._openMenu()} style={styles.headerFooterBar}>
+        <TouchableOpacity onPress={this._openMenu} style={styles.headerFooterBar}>
           <Icon name="menu" style={styles.menu}></Icon>
         </TouchableOpacity>
         <Text style={styles.barText}>
@@ -18,7 +18,7 @@ class HeaderBarWithMenuIcon extends Component{
     )
   }
 
-  _openMenu(){
+  _openMenu = () => {
     this.props.onPressMenu()
   }
 }

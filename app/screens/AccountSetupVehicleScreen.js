@@ -47,13 +47,13 @@ class AccountSetupVehicleScreen extends Component{
     })
   }
 
-  _motorCarPressed(){
+  _motorCarPressed = () => {
     if (!this.state.isCarSelected){
       this._toggleSelectedVehicle()
     }
   }
 
-  _motorBikePressed(){
+  _motorBikePressed = () => {
     if (!this.state.isBikeSelected){
       this._toggleSelectedVehicle()
     }
@@ -99,7 +99,7 @@ class AccountSetupVehicleScreen extends Component{
             VEHICLE TYPE
           </Text>
 
-          <TouchableOpacity onPress={()=>this._motorCarPressed()} style={styles.sideTabs}>
+          <TouchableOpacity onPress={this._motorCarPressed} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Motor Car
             </Text>
@@ -109,7 +109,7 @@ class AccountSetupVehicleScreen extends Component{
             </EvilIcons>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>this._motorBikePressed()} style={styles.sideTabs}>
+          <TouchableOpacity onPress={this._motorBikePressed} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Motor Bike
             </Text>

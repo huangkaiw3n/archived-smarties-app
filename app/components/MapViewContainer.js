@@ -15,11 +15,12 @@ class MapViewContainer extends Component{
     }
   }
 
-  _handleSelectedLoc(e){
+  _handleSelectedLoc = (e) => {
     console.log("Moved Pin Coord: ")
     console.log(e.nativeEvent.coordinate)
     this.setState({ pinCoordinate: e.nativeEvent.coordinate })
     this.getStreetNameFromApi(e.nativeEvent.coordinate)
+    this.props.closeBottomDrawer()
     // this.props.handler(`Lat:${this.state.pinCoordinate.latitude} , Lon:${this.state.pinCoordinate.longitude}`)
   }
 
@@ -41,6 +42,12 @@ class MapViewContainer extends Component{
     this.getStreetNameFromApi(this.state.pinCoordinate)
   }
 
+  _onPressHandler = () => {
+    if(this.props.isBottomDrawerOpen){
+      this.props.closeBottomDrawer()
+    }
+  }
+
   render() {
     return (
       <View style={[styles.mapWrapperView, this.props.style || {}]}>
@@ -49,18 +56,18 @@ class MapViewContainer extends Component{
         initialRegion={{
           latitude: this.state.pinCoordinate.latitude,
           longitude: this.state.pinCoordinate.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         }}
         showsUserLocation={true}
         followsUserLocation={true}
         loadingEnabled={true}
         loadingBackgroundColor="gainsboro"
-        >
+        onPress={this._onPressHandler}>
           <MapView.Marker draggable
           coordinate={this.state.pinCoordinate}
           pinColor = {"steelblue"}
-          onDragEnd={(event) => this._handleSelectedLoc(event)}>
+          onDragEnd={this._handleSelectedLoc}>
           {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
             {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
             {(Platform.OS === "android") ? <MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />: null}

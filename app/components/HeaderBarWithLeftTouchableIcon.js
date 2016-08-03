@@ -8,7 +8,7 @@ class HeaderBarWithLeftTouchableIcon extends Component{
   render() {
     return (
       <View style={styles.viewContainerHeader}>
-        <TouchableOpacity onPress={(event) => this._navigateToPrevScreen()} style={styles.headerFooterBar}>
+        <TouchableOpacity onPress={this._navigateToPrevScreen} style={styles.headerFooterBar}>
           <Entypo name="chevron-thin-left" style={styles.chevronLeft}></Entypo>
         </TouchableOpacity>
         <Text style={styles.barText}>
@@ -18,7 +18,7 @@ class HeaderBarWithLeftTouchableIcon extends Component{
     )
   }
 
-  _navigateToPrevScreen(){
+  _navigateToPrevScreen = () => {
     this.props.nav.pop()
   }
 }

@@ -11,6 +11,7 @@ class MapNaviScreen extends Component{
     super(props)
     this._updateSelectedRoad = this._updateSelectedRoad.bind(this)
     this._openSideDrawer = this._openSideDrawer.bind(this)
+    this._closeBottomDrawer = this._closeBottomDrawer.bind(this)
     this.state = {
       roadname: "",
       openBottomDrawer:false,
@@ -44,8 +45,14 @@ class MapNaviScreen extends Component{
   }
 
   _parkHereButtonHandler(){
-    let toggleDrawerState = !this.state.openBottomDrawer
-    this.setState( {openBottomDrawer:toggleDrawerState} )
+    console.log("open drawer fired")
+    // let toggleDrawerState = !this.state.openBottomDrawer
+    this.setState( {openBottomDrawer:true} )
+  }
+
+  _closeBottomDrawer(){
+    console.log("close drawer fired")
+    this.setState( {openBottomDrawer:false} )
   }
 
   render() {
@@ -62,9 +69,11 @@ class MapNaviScreen extends Component{
             <MapViewContainer
             style={{flex:9}}
             userLocation={this.props.navigator.props.userLocation}
-            handler={this._updateSelectedRoad}>
+            handler={this._updateSelectedRoad}
+            isBottomDrawerOpen={this.state.openBottomDrawer}
+            closeBottomDrawer={this._closeBottomDrawer}>
             </MapViewContainer>
-            <Text style={(this.state.openBottomDrawer) ? {flex:5} : {flex:0.7}}>{this.state.roadname}</Text>
+            <Text style={(this.state.openBottomDrawer) ? {flex:6} : {flex:0.7}}>{this.state.roadname}</Text>
           </View>
 
           <TouchableOpacity onPress={(event) => this._parkHereButtonHandler()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
