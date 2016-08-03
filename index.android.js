@@ -37,7 +37,14 @@ class StreetSmart extends Component {
                       longitude:position.coords.longitude}
        this.setState({ userLocation: latLon })
      },
-     (error) => alert(error.message),
+     (error) => {
+       alert(error.message)
+       this.setState({
+         userLocation: {
+           latitude:1.3594206,
+           longitude:103.8066663
+         }})
+     },
     //  {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
    )
    this.watchID = Geolocation.watchPosition((position) => {
