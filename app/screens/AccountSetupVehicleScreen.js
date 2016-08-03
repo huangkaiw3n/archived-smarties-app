@@ -27,7 +27,7 @@ class AccountSetupVehicleScreen extends Component{
     )
   }
 
-  _navigateToAccountSetupPaymentScreen(){
+  _navigateToAccountSetupPaymentScreen = () => {
     // resetTo(route) clears the existing route stack unlike push(route)
     if (this.state.vehicleNo === ""){
       this._alertVehicleNo()
@@ -120,7 +120,7 @@ class AccountSetupVehicleScreen extends Component{
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={(event) => this._navigateToAccountSetupPaymentScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+        <TouchableOpacity onPress={this._navigateToAccountSetupPaymentScreen} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
             ADD VEHICLE
           </Text>

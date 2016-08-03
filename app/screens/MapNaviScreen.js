@@ -15,6 +15,7 @@ class MapNaviScreen extends Component{
     this.state = {
       roadname: "",
       openBottomDrawer:false,
+      footerText: "PARK HERE",
     }
   }
 
@@ -44,18 +45,37 @@ class MapNaviScreen extends Component{
     this.refs["SIDE_DRAWER"].openSideDrawer()
   }
 
-  _parkHereButtonHandler(){
+  _parkHereButtonHandler = () => {
     console.log("open drawer fired")
     // let toggleDrawerState = !this.state.openBottomDrawer
-    this.setState( {openBottomDrawer:true} )
+    if (!this.state.openBottomDrawer){
+      this.setState( {openBottomDrawer:true} )
+      this.setState( {footerText:"START PARKING SESSION"})
+    }
+
+    if(this.state.footerText === "START PARKING SESSION"){
+      console.log("PARKING IN PROGRESS")
+    }
   }
 
   _closeBottomDrawer(){
     console.log("close drawer fired")
     this.setState( {openBottomDrawer:false} )
+    this.setState( {footerText:"PARK HERE"})
   }
 
   render() {
+
+    if (!this.state.openBottomDrawer) {
+      var bottomDrawerView = (
+        <Text>{this.state.roadname}</Text>
+      );
+    }
+    else {
+      var bottomDrawerView = (
+        <Text>OPEN NOW</Text>
+      );
+    }
 
     return (
       <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER">
@@ -73,12 +93,14 @@ class MapNaviScreen extends Component{
             isBottomDrawerOpen={this.state.openBottomDrawer}
             closeBottomDrawer={this._closeBottomDrawer}>
             </MapViewContainer>
-            <Text style={(this.state.openBottomDrawer) ? {flex:6} : {flex:0.7}}>{this.state.roadname}</Text>
+            <View style={(this.state.openBottomDrawer) ? {flex:6} : {flex:0.7}}>
+              {bottomDrawerView}
+            </View>
           </View>
 
-          <TouchableOpacity onPress={(event) => this._parkHereButtonHandler()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+          <TouchableOpacity onPress={this._parkHereButtonHandler} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
             <Text style={styles.barText}>
-              PARK HERE
+              {this.state.footerText}
             </Text>
           </TouchableOpacity>
 
