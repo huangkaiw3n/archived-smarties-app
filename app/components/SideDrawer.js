@@ -118,6 +118,7 @@ class SideDrawer extends Component{
       ref="DRAWER_LAYOUT"
       drawerWidth={300}
       drawerPosition={DrawerLayout.positions.Left}
+      drawerLockMode="locked-closed"
       renderNavigationView={() => sideDrawerView}>
         {this.props.children}
       </DrawerLayout>

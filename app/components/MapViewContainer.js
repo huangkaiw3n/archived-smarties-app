@@ -43,7 +43,7 @@ class MapViewContainer extends Component{
   }
 
   _onPressHandler = () => {
-    if(this.props.isBottomDrawerOpen){
+    if(this.props.isBottomDrawerOpen && !this.props.isParkingInProgress){
       this.props.closeBottomDrawer()
     }
   }
