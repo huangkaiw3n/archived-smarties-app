@@ -9,7 +9,7 @@ class HeaderBarWithMenuIcon extends Component{
     return (
       <View style={styles.viewContainerHeader}>
         <TouchableOpacity onPress={this._openMenu} style={styles.headerFooterBar}>
-          <Icon name="menu" style={styles.menu}></Icon>
+          <Icon name="menu" style={[styles.menu, {opacity:(this.props.isParkingInProgress ? 0:1)}]}></Icon>
         </TouchableOpacity>
         <Text style={styles.barText}>
           {this.props.children}
@@ -19,7 +19,9 @@ class HeaderBarWithMenuIcon extends Component{
   }
 
   _openMenu = () => {
-    this.props.onPressMenu()
+    if(!this.props.isParkingInProgress){
+      this.props.onPressMenu()
+    }
   }
 }
 
@@ -40,7 +42,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "row",
   },
-
   barText: {
     flex:10,
     backgroundColor: "steelblue",
