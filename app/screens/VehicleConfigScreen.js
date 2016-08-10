@@ -6,11 +6,11 @@ import HeaderBarWithLeftTouchableIcon from "../components/HeaderBarWithLeftTouch
 import EvilIcons from "react-native-vector-icons/EvilIcons"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-class AccountSetupVehicleScreen extends Component{
+class VehicleConfigScreen extends Component{
   constructor(props){
     super(props)
     this.state = {
-      vehicleNo: "",
+      vehicleNo: this.props.navigator.props.vehicleData.vehicleNo,
       isCarSelected:true,
       isBikeSelected:false,
     }
@@ -25,19 +25,6 @@ class AccountSetupVehicleScreen extends Component{
         {text: "Okay"},
       ]
     )
-  }
-
-  _navigateToAccountSetupPaymentScreen = () => {
-    // resetTo(route) clears the existing route stack unlike push(route)
-    if (this.state.vehicleNo === ""){
-      this._alertVehicleNo()
-    }
-    else{
-      this.props.navigator.props.updateVehicleData(this.state)
-      this.props.navigator.push({
-        identifier:"AccountSetupPaymentScreen",
-      })
-    }
   }
 
   _toggleSelectedVehicle() {
@@ -65,19 +52,11 @@ class AccountSetupVehicleScreen extends Component{
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
 
         <HeaderBarWithLeftTouchableIcon nav={this.props.navigator}>
-          ACCOUNT SET UP
+          VEHICLE
         </HeaderBarWithLeftTouchableIcon>
 
-        <View style={{flex:9, justifyContent:"flex-start", }}>
-          <View style={{marginTop:20, justifyContent:"center", alignItems:"center", flexDirection:"row", backgroundColor:"ghostwhite"}}>
-            <View style={[styles.circleBorder, {backgroundColor: "steelblue"}]}>
-              <Ionicons name="md-car" style={styles.selectedIcon}></Ionicons>
-            </View>
-              <Ionicons name="md-arrow-dropright" style={[styles.selectedIcon, {color:"darkgrey", fontSize:50, marginLeft: 30, marginRight: 30}]}></Ionicons>
-            <View style={[styles.circleBorder, {backgroundColor: "darkgrey"}]}>
-              <Ionicons name="logo-usd" style={styles.selectedIcon}></Ionicons>
-            </View>
-          </View>
+        <View style={{flex:10, justifyContent:"flex-start", }}>
+
           <Text style={styles.headingsText}>
             VEHICLE NO.
           </Text>
@@ -120,12 +99,6 @@ class AccountSetupVehicleScreen extends Component{
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={this._navigateToAccountSetupPaymentScreen} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
-          <Text style={styles.barText}>
-            ADD VEHICLE
-          </Text>
-        </TouchableOpacity>
-
       </ViewContainer>
 
     )
@@ -134,21 +107,6 @@ class AccountSetupVehicleScreen extends Component{
 
 const styles = StyleSheet.create({
 
-  headerFooterBar: {
-    backgroundColor: "steelblue",
-    flex:1,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 20,
-    flexDirection: "row",
-  },
-  barText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "200",
-    textAlign: "center",
-    letterSpacing: 0.8,
-  },
   check: {
     alignSelf: "center",
     fontSize: 30,
@@ -177,18 +135,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  selectedIcon: {
-    alignSelf: "center",
-    fontSize: 30,
-    color: "white",
-  },
-  circleBorder: {
-    height: 45,
-    width: 45,
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 })
 
-module.exports = AccountSetupVehicleScreen
+module.exports = VehicleConfigScreen

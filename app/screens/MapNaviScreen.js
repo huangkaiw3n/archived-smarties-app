@@ -19,7 +19,7 @@ class MapNaviScreen extends Component{
       footerText: "PARK HERE",
       isBottomDrawerOpen: false,
       isParkingInProgress: false,
-      parkingDuration: 1,
+      estParkingDuration: 1,
     }
   }
 
@@ -178,8 +178,8 @@ class MapNaviScreen extends Component{
             <Picker
             mode="dropdown"
             style={styles.pickerStyle}
-            selectedValue={this.state.parkingDuration}
-            onValueChange={(parkingDuration) => this.setState({parkingDuration})}>
+            selectedValue={this.state.estParkingDuration}
+            onValueChange={(estParkingDuration) => this.setState({estParkingDuration})}>
               <Picker.Item label="1 Hr" value={1} />
               <Picker.Item label="2 Hr" value={2} />
               <Picker.Item label="3 Hr" value={3} />

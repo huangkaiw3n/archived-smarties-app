@@ -25,6 +25,10 @@ class SideDrawer extends Component{
     )
   }
 
+  _vehicleConfigHandler(){
+    this.props.navigator.push({identifier: "VehicleConfigScreen"})
+  }
+
   render() {
 
     if (this.props.navigator.props.userData === null){
@@ -57,7 +61,7 @@ class SideDrawer extends Component{
             VEHICLE
           </Text>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+          <TouchableOpacity onPress={(event) => this._vehicleConfigHandler()} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Vehicle No.
             </Text>
@@ -118,7 +122,7 @@ class SideDrawer extends Component{
       ref="DRAWER_LAYOUT"
       drawerWidth={300}
       drawerPosition={DrawerLayout.positions.Left}
-      drawerLockMode="locked-closed"
+      //drawerLockMode="locked-closed"
       renderNavigationView={() => sideDrawerView}>
         {this.props.children}
       </DrawerLayout>

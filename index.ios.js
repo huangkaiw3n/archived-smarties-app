@@ -13,6 +13,7 @@ import HeaderBarWithLeftTouchableIcon from "./app/components/HeaderBarWithLeftTo
 import MapNaviScreen from "./app/screens/MapNaviScreen"
 import AccountSetupVehicleScreen from "./app/screens/AccountSetupVehicleScreen"
 import AccountSetupPaymentScreen from "./app/screens/AccountSetupPaymentScreen"
+import VehicleConfigScreen from "./app/screens/VehicleConfigScreen"
 import Geolocation from "Geolocation"
 
 class StreetSmart extends Component {
@@ -81,7 +82,9 @@ class StreetSmart extends Component {
       case "AccountSetupVehicleScreen":
         return <AccountSetupVehicleScreen {...globalNavigatorProps}/>
       case "AccountSetupPaymentScreen":
-          return <AccountSetupPaymentScreen {...globalNavigatorProps}/>
+        return <AccountSetupPaymentScreen {...globalNavigatorProps}/>
+      case "VehicleConfigScreen":
+        return <VehicleConfigScreen {...globalNavigatorProps}/>
       default:
         return <View style={{flex:1, color:"red"}}/>
       }
