@@ -47,9 +47,25 @@ class VehicleConfigScreen extends Component{
     }
   }
 
+  _alertVehicleNo(){
+    const alertMessage = "Please key in your license plate number."
+    Alert.alert(
+      "Invalid Vehicle Information",
+     alertMessage,
+      [
+        {text: "Okay"},
+      ]
+    )
+  }
+
   _updateVehNoAndPopScreen(){
-    this.props.navigator.props.updateVehicleData(this.state)
-    this.props.navigator.pop()
+    if (this.state.vehicleNo === ""){
+      this._alertVehicleNo()
+    }
+    else{
+      this.props.navigator.props.updateVehicleData(this.state)
+      this.props.navigator.pop()
+    }
   }
 
   render() {
