@@ -5,7 +5,10 @@ import MapViewContainer from "../components/MapViewContainer";
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithMenuIcon from "../components/HeaderBarWithMenuIcon"
 import SideDrawer from "../components/SideDrawer"
-import Icon from "react-native-vector-icons/Entypo"
+import Entypo from "react-native-vector-icons/Entypo"
+import FontAwesome from "react-native-vector-icons/FontAwesome"
+
+import * as Animatable from 'react-native-animatable';
 
 class MapNaviScreen extends Component{
   constructor(props){
@@ -168,7 +171,7 @@ class MapNaviScreen extends Component{
               <Text style={[styles.labelsText, {color:"darkgrey", flex:2}]}>
                 {this.props.navigator.props.vehicleData.vehicleNo}
               </Text>
-              <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
+              <Entypo name="chevron-thin-right" style={styles.chevronRight}></Entypo>
             </View>
           </TouchableOpacity>
           <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}]}>
@@ -200,8 +203,13 @@ class MapNaviScreen extends Component{
     }
     else {
       var bottomDrawerView = (
-        <View style={{flex:7, flexDirection:"column", alignItems:"stretch", paddingLeft:20, borderWidth: 1, borderColor: "gainsboro",}}>
-
+        <View style={{flex:7, flexDirection:"column", alignItems:"center", paddingLeft:20, borderWidth: 1, borderColor: "gainsboro",}}>
+          <Text style={[styles.labelsText, {marginTop:5}]}>
+            Duration and cost
+          </Text>
+          <Animatable.View animation="rotate" iterationCount="infinite">
+            <FontAwesome name="circle-o-notch" style={styles.spinningIcon} duration={5000}></FontAwesome>
+          </Animatable.View>
         </View>
       );
     }
@@ -216,7 +224,7 @@ class MapNaviScreen extends Component{
 
           <View style={{flex:9, justifyContent:"flex-start"}}>
             <MapViewContainer
-            style={{flex:9}}
+            style={{flex:6}}
             userLocation={this.props.navigator.props.userLocation}
             handler={this._updateSelectedRoad}
             isBottomDrawerOpen={this.state.isBottomDrawerOpen}
@@ -290,6 +298,11 @@ const styles = StyleSheet.create({
     padding:0,
     alignSelf: "center",
     width:110,
+  },
+  spinningIcon: {
+    color: "mediumaquamarine",
+    fontSize: 225,
+    margin: 5,
   }
 })
 
