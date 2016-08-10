@@ -19,7 +19,7 @@ class HeaderBarWithLeftTouchableIcon extends Component{
   }
 
   _navigateToPrevScreen = () => {
-    if(this.props.callBack === null){
+    if(!this.props.callBack){
       this.props.nav.pop()
     }
     else{
