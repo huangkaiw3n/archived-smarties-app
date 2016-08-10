@@ -14,6 +14,7 @@ class VehicleConfigScreen extends Component{
       isCarSelected:true,
       isBikeSelected:false,
     }
+    this._updateVehNoAndPopScreen = this._updateVehNoAndPopScreen.bind(this)
   }
 
   _alertVehicleNo(){
@@ -46,12 +47,16 @@ class VehicleConfigScreen extends Component{
     }
   }
 
+  _updateVehNoAndPopScreen(){
+    this.props.navigator.props.updateVehicleData(this.state)
+    this.props.navigator.pop()
+  }
 
   render() {
     return (
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
 
-        <HeaderBarWithLeftTouchableIcon nav={this.props.navigator}>
+        <HeaderBarWithLeftTouchableIcon nav={this.props.navigator} callBack={this._updateVehNoAndPopScreen}>
           VEHICLE
         </HeaderBarWithLeftTouchableIcon>
 
