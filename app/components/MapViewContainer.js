@@ -16,11 +16,15 @@ class MapViewContainer extends Component{
   }
 
   _handleSelectedLoc = (e) => {
-    console.log("Moved Pin Coord: ")
-    console.log(e.nativeEvent.coordinate)
-    this.setState({ pinCoordinate: e.nativeEvent.coordinate })
-    this.getStreetNameFromApi(e.nativeEvent.coordinate)
-    this.props.closeBottomDrawer()
+    if(!this.props.isParkingInProgress){
+      console.log("Moved Pin Coord: ")
+      console.log(e.nativeEvent.coordinate)
+      this.setState({ pinCoordinate: e.nativeEvent.coordinate })
+      this.getStreetNameFromApi(e.nativeEvent.coordinate)
+      if (this.props.isBottomDrawerOpen) {
+        this.props.closeBottomDrawer()
+      }
+    }
     // this.props.handler(`Lat:${this.state.pinCoordinate.latitude} , Lon:${this.state.pinCoordinate.longitude}`)
   }
 
@@ -64,7 +68,8 @@ class MapViewContainer extends Component{
         loadingEnabled={true}
         loadingBackgroundColor="gainsboro"
         onPress={this._onPressHandler}>
-          <MapView.Marker draggable
+          <MapView.Marker
+          draggable
           coordinate={this.state.pinCoordinate}
           pinColor = {"steelblue"}
           onDragEnd={this._handleSelectedLoc}>
