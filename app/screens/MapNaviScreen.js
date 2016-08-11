@@ -1,17 +1,20 @@
 "use strict"
 import React, { Component } from "react"
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Picker, Platform } from "react-native"
-import MapViewContainer from "../components/MapViewContainer";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Picker, Platform, Dimensions } from "react-native"
+import MapViewContainer from "../components/MapViewContainer"
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithMenuIcon from "../components/HeaderBarWithMenuIcon"
 import SideDrawer from "../components/SideDrawer"
 import Entypo from "react-native-vector-icons/Entypo"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
+import * as Animatable from 'react-native-animatable'
 
-import * as Animatable from 'react-native-animatable';
+var AnimatedCircleIcon = Animatable.createAnimatableComponent(FontAwesome)
+var {height, width} = Dimensions.get('window')
 
 class MapNaviScreen extends Component{
   constructor(props){
+    var intervalID
     super(props)
     this._updateSelectedRoad = this._updateSelectedRoad.bind(this)
     this._openSideDrawer = this._openSideDrawer.bind(this)
@@ -23,6 +26,10 @@ class MapNaviScreen extends Component{
       isBottomDrawerOpen: false,
       isParkingInProgress: false,
       estParkingDuration: 1,
+      elapsedDuration:0,
+      elapsedHour: "00",
+      elapsedMin: "00",
+      cost: "$1.00",
     }
   }
 
@@ -117,20 +124,72 @@ class MapNaviScreen extends Component{
         isParkingInProgress:true,
         headerText: "PARKING IN PROGRESS",
         footerText:"STOP PARKING",
+      },
+      () => {
+        this._elapsedParkingDurationTimer()
+        this._alertParkingStarted()
       })
-      this._alertParkingStarted()
+
     }
     else {
       this._alertEndParking()
     }
   }
 
+  _updateClock = () => {
+    const currentDuration = this.state.elapsedDuration
+    const currentMinutes = currentDuration % 60
+    const currentHours = Math.floor(currentDuration / 60)
+    let elapsedHourString, elapsedMinString
+
+    if (currentMinutes > 9) {
+      elapsedMinString = currentMinutes.toString()
+    }
+    else {
+      elapsedMinString = "0" + currentMinutes.toString()
+    }
+
+    if (currentHours > 9) {
+      elapsedHourString = currentHours.toString()
+    }
+    else {
+      elapsedHourString = "0" + currentHours.toString()
+    }
+
+    this.setState({
+      elapsedDuration: currentDuration+1,
+      elapsedHour: elapsedHourString,
+      elapsedMin: elapsedMinString,
+    })
+  }
+
+  componentWillUnmount(){
+    this._removeTimer()
+  }
+
+  _removeTimer(){
+    if(this.intervalID) {
+      clearInterval(this.intervalID)
+      this.intervalID = null
+    }
+  }
+
+  _elapsedParkingDurationTimer(){
+    if (!this.intervalID){
+      this.intervalID = setInterval(this._updateClock, 60000)
+    }
+  }
+
   _endParkingSession(){
+    this._removeTimer()
     this.setState({
       isParkingInProgress:false,
       isBottomDrawerOpen:false,
       headerText: "STREETSMART",
       footerText:"PARK HERE",
+      elapsedDuration:0,
+      elapsedHour: "00",
+      elapsedMin: "00",
     })
     //push parking history screen
   }
@@ -203,20 +262,43 @@ class MapNaviScreen extends Component{
     }
     else {
       var bottomDrawerView = (
-        <View style={{flex:7, flexDirection:"column", alignItems:"center", paddingLeft:20, borderWidth: 1, borderColor: "gainsboro",}}>
-          <Text style={[styles.labelsText, {marginTop:5}]}>
+        <View style={{flex:7, flexDirection:"column", justifyContent:"flex-start", alignItems:"center", paddingLeft:20, borderWidth: 1, borderColor: "gainsboro",}}>
+          <Text style={[styles.labelsText, {margin:5}]}>
             Duration and cost
           </Text>
-          <Animatable.View animation="rotate" iterationCount="infinite">
-            <FontAwesome name="circle-o-notch" style={styles.spinningIcon} duration={5000}></FontAwesome>
-          </Animatable.View>
+          <View style={styles.circleView}>
+            <View style={{top:height*0.05, flexDirection:"row"}}>
+              <Text style={styles.clockText}>
+                {this.state.elapsedHour}
+              </Text>
+              <Animatable.Text animation="flipInX" iterationCount="infinite" duration={1000} style={styles.clockText}>
+                :
+              </Animatable.Text>
+              <Text style={styles.clockText}>
+                {this.state.elapsedMin}
+              </Text>
+            </View>
+            <View style={{top:height*0.05, flexDirection:"row"}}>
+              <Text style={styles.clockLabels}>
+                {"HOUR        "}
+              </Text>
+              <Text style={styles.clockLabels}>
+                {"    MIN"}
+              </Text>
+            </View>
+            <View>
+            <Text style={[styles.clockLabels, {marginTop:height*0.07}]}>
+              {this.state.cost}
+            </Text>
+            </View>
+          </View>
         </View>
       );
     }
 
     return (
       <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER">
-        <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
+        <ViewContainer style={{backgroundColor:"ghostwhite"}}>
 
           <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator} isParkingInProgress={this.state.isParkingInProgress}>
             {this.state.headerText}
@@ -301,8 +383,29 @@ const styles = StyleSheet.create({
   },
   spinningIcon: {
     color: "mediumaquamarine",
-    fontSize: 225,
     margin: 5,
+    fontSize: 256,
+  },
+  circleView: {
+    marginTop:10,
+    height:height * 0.32,
+    width:height * 0.32,
+    borderRadius: height * 0.32 * 0.5,
+    justifyContent: "flex-start",
+    flexDirection: "column",
+    alignItems: "center",
+    borderWidth:4,
+    borderColor:"steelblue",
+  },
+  clockText: {
+    color: "steelblue",
+    fontSize: height*0.078,
+    textAlign: "center",
+    margin: 3,
+  },
+  clockLabels: {
+    color: "steelblue",
+    fontSize: height*0.025,
   }
 })
 
