@@ -11,6 +11,38 @@ import * as Animatable from 'react-native-animatable'
 
 var AnimatedCircleIcon = Animatable.createAnimatableComponent(FontAwesome)
 var {height, width} = Dimensions.get('window')
+const dummyDataIOS = [
+  {
+    date: "Mon Aug 8 2016",
+    time: "1:13:20 PM SGT",
+    venue: "North Buona Vista Rd, Singapore",
+    duration: 125,
+    amount: 2.5,
+  },
+  {
+    date: "Tue Aug 2 2016",
+    time: "8:15:12 AM SGT",
+    venue: "One-north Gateway, Singapore",
+    duration: 78,
+    amount: 1.5,
+  },
+]
+const dummyDataAndroid = [
+  {
+    date: "Mon Aug 8 2016",
+    time: "13:13:20",
+    venue: "North Buona Vista Rd, Singapore",
+    duration: 125,
+    amount: 2.5,
+  },
+  {
+    date: "Tue Aug 2 2016",
+    time: "8:15:12",
+    venue: "One-north Gateway, Singapore",
+    duration: 78,
+    amount: 1.5,
+  },
+]
 
 class MapNaviScreen extends Component{
   constructor(props){
@@ -20,7 +52,7 @@ class MapNaviScreen extends Component{
     this.elapsedDuration = 0 //in minutes
     this.isParkingInProgress = false
     this.isBottomDrawerOpen = false
-    this.parkingHistoryData = []
+    this.parkingHistoryData = (Platform.OS === "ios") ? dummyDataIOS:dummyDataAndroid
     this.parkingCost = 0.5
     this._updateSelectedRoad = this._updateSelectedRoad.bind(this)
     this._openSideDrawer = this._openSideDrawer.bind(this)
@@ -205,7 +237,8 @@ class MapNaviScreen extends Component{
 
   _saveAndPushParkingInfo(){
     const parkingInfo = {
-      dateTime: this.startDateTime,
+      date: this.startDateTime.toDateString(),
+      time: this.startDateTime.toLocaleTimeString(),
       venue: this.state.roadname,
       duration: this.elapsedDuration,
       amount: this.parkingCost,

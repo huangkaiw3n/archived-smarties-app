@@ -12,10 +12,10 @@ class ParkingHistoryScreen extends Component{
     super(props)
   }
 
-  parkingInfo = ({dateTime, venue, duration, amount}) => {
+  parkingInfo = ({date, time, venue, duration, amount}) => {
     return (
       <View style={{borderBottomWidth:1, borderColor:"darkgrey", marginLeft: 20, paddingTop: 20, paddingBottom: 30}}>
-        <Text style={styles.labelsText}>Parking Began:  {dateTime.toDateString()}, {dateTime.toLocaleTimeString()}</Text>
+        <Text style={styles.labelsText}>Parking Began:  {date}, {time}</Text>
         <Text style={styles.labelsText}>Duration          :  {duration} minutes</Text>
         <Text style={styles.labelsText}>Location          :  {venue}</Text>
         <Text style={styles.labelsText}>Parking Cost   :  ${amount.toFixed(2)}</Text>
@@ -32,7 +32,7 @@ class ParkingHistoryScreen extends Component{
         </HeaderBarWithLeftTouchableIcon>
 
         <View style={{flex:10, justifyContent:"flex-start"}}>
-        <ScrollableList data={this.props.parkingHistoryData} renderRow={this.parkingInfo} />
+        <ScrollableList removeClippedSubviews={false} data={this.props.parkingHistoryData} renderRow={this.parkingInfo} />
         </View>
 
       </ViewContainer>
