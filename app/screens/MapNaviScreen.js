@@ -19,6 +19,7 @@ class MapNaviScreen extends Component{
     this._updateSelectedRoad = this._updateSelectedRoad.bind(this)
     this._openSideDrawer = this._openSideDrawer.bind(this)
     this._closeBottomDrawer = this._closeBottomDrawer.bind(this)
+    this._alertSetUpRequired = this._alertSetUpRequired.bind(this)
     this.state = {
       roadname: "",
       headerText: "STREETSMART",
@@ -203,6 +204,10 @@ class MapNaviScreen extends Component{
     })
   }
 
+  _setEstParkingDuration = (estParkingDuration) => {
+    this.setState({estParkingDuration})
+  }
+
   render() {
 
     if (!this.state.isBottomDrawerOpen) {
@@ -241,7 +246,7 @@ class MapNaviScreen extends Component{
             mode="dropdown"
             style={styles.pickerStyle}
             selectedValue={this.state.estParkingDuration}
-            onValueChange={(estParkingDuration) => this.setState({estParkingDuration})}>
+            onValueChange={this._setEstParkingDuration}>
               <Picker.Item label="1 Hr" value={1} />
               <Picker.Item label="2 Hr" value={2} />
               <Picker.Item label="3 Hr" value={3} />
@@ -297,7 +302,7 @@ class MapNaviScreen extends Component{
     }
 
     return (
-      <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER">
+      <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER" alertSetUpRequired={this._alertSetUpRequired}>
         <ViewContainer style={{backgroundColor:"ghostwhite"}}>
 
           <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator} isParkingInProgress={this.state.isParkingInProgress}>

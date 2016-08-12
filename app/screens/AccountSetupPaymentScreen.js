@@ -11,7 +11,7 @@ class AccountSetupPaymentScreen extends Component{
     super(props)
   }
 
-  _navigateToMapNaviScreen(){
+  _navigateToMapNaviScreen = () => {
     this.props.navigator.resetTo({
       identifier:"MapNaviScreen",
     })
@@ -64,7 +64,7 @@ class AccountSetupPaymentScreen extends Component{
 
         </View>
 
-        <TouchableOpacity onPress={(event) => this._navigateToMapNaviScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+        <TouchableOpacity onPress={this._navigateToMapNaviScreen} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
             ADD CREDIT CARD
           </Text>

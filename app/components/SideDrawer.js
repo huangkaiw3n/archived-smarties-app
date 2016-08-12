@@ -25,8 +25,13 @@ class SideDrawer extends Component{
     )
   }
 
-  _vehicleConfigHandler(){
-    this.props.navigator.push({identifier: "VehicleConfigScreen"})
+  _vehicleConfigHandler = () => {
+    if (!this.props.navigator.props.vehicleData) {
+      this.props.alertSetUpRequired()
+    }
+    else {
+      this.props.navigator.push({identifier: "VehicleConfigScreen"})
+    }
   }
 
   render() {
@@ -61,7 +66,7 @@ class SideDrawer extends Component{
             VEHICLE
           </Text>
 
-          <TouchableOpacity onPress={(event) => this._vehicleConfigHandler()} style={styles.sideTabs}>
+          <TouchableOpacity onPress={this._vehicleConfigHandler} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Vehicle No.
             </Text>

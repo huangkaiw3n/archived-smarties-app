@@ -17,7 +17,7 @@ class CreateNewAccScreen extends Component{
     }
   }
 
-  _navigateToMapNaviScreen(){
+  _navigateToMapNaviScreen = () => {
     if (this.state.email === "" || this.state.pass === "" || this.state.mobile === ""){
       this._alertEmptyFields()
     }
@@ -41,6 +41,18 @@ class CreateNewAccScreen extends Component{
     )
   }
 
+  _setEmail = (email) => {
+    this.setState({email})
+  }
+
+  _setPass = (pass) => {
+    this.setState({pass})
+  }
+
+  _setMobile = (mobile) => {
+    this.setState({mobile})
+  }
+
   render() {
     return (
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
@@ -59,7 +71,7 @@ class CreateNewAccScreen extends Component{
             keyboardType={"email-address"}
             returnKeyType="next"
             maxLength={50}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={this._setEmail}
             value={this.state.email}
             autoCorrect={false}
           />
@@ -73,7 +85,7 @@ class CreateNewAccScreen extends Component{
             keyboardType={"default"}
             returnKeyType="next"
             maxLength={50}
-            onChangeText={(pass) => this.setState({pass})}
+            onChangeText={this._setPass}
             value={this.state.pass}
             autoCorrect={false}
           />
@@ -86,7 +98,7 @@ class CreateNewAccScreen extends Component{
             keyboardType={"numeric"}
             returnKeyType="done"
             maxLength={30}
-            onChangeText={(mobile) => this.setState({mobile})}
+            onChangeText={this._setMobile}
             value={this.state.mobile}
             autoCorrect={false}
           />
@@ -100,7 +112,7 @@ class CreateNewAccScreen extends Component{
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={(event) => this._navigateToMapNaviScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+        <TouchableOpacity onPress={this._navigateToMapNaviScreen} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
             LET'S GET STARTED
           </Text>

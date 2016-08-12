@@ -15,7 +15,7 @@ class LoginScreen extends Component{
     }
   }
 
-  _navigateToMapNaviScreen(){
+  _navigateToMapNaviScreen = () => {
     if (this.state.email === "" || this.state.pass === ""){
       this._alertEmptyFields()
     }
@@ -39,6 +39,14 @@ class LoginScreen extends Component{
     )
   }
 
+  _setEmail = (email) => {
+    this.setState({email})
+  }
+
+  _setPass = (pass) => {
+    this.setState({pass})
+  }
+
   render() {
     return (
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
@@ -57,7 +65,7 @@ class LoginScreen extends Component{
             keyboardType={"email-address"}
             returnKeyType="next"
             maxLength={50}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={this._setEmail}
             value={this.state.email}
             autoCorrect={false}
           />
@@ -71,13 +79,13 @@ class LoginScreen extends Component{
             keyboardType={"default"}
             returnKeyType="next"
             maxLength={50}
-            onChangeText={(pass) => this.setState({pass})}
+            onChangeText={this._setPass}
             value={this.state.pass}
             autoCorrect={false}
           />
         </View>
 
-        <TouchableOpacity onPress={(event) => this._navigateToMapNaviScreen()} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
+        <TouchableOpacity onPress={this._navigateToMapNaviScreen} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
           <Text style={styles.barText}>
             LOGIN
           </Text>

@@ -19,13 +19,13 @@ class WelcomeScreen extends Component{
         <Text style={styles.welcomeTitle}> StreetSmart </Text>
         <Icon name="car" style={styles.carIcon}></Icon>
 
-        <TouchableOpacity onPress={(event) => this._navigateToCreateNewAccScreen()} style={styles.buttonContainer}>
+        <TouchableOpacity onPress={this._navigateToCreateNewAccScreen} style={styles.buttonContainer}>
           <Text style={styles.buttonText}>
             CREATE A NEW ACCOUNT
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={(event) => this._navigateToLoginScreen()}>
+        <TouchableOpacity onPress={this._navigateToLoginScreen}>
           <Text style={styles.genericTextLink}>
             Have an account?
             <Text style={styles.genericTextLinkBold}>
@@ -34,7 +34,7 @@ class WelcomeScreen extends Component{
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.skipButton} onPress={(event) => this._navigateToMapNaviScreen()}>
+        <TouchableOpacity style={styles.skipButton} onPress={this._navigateToMapNaviScreen}>
           <Text style={[styles.genericTextLink, {fontSize:20}]}>
             SKIP
           </Text>
@@ -45,19 +45,19 @@ class WelcomeScreen extends Component{
     )
   }
 
-  _navigateToCreateNewAccScreen(){
+  _navigateToCreateNewAccScreen = () => {
     this.props.navigator.push({
       identifier:"CreateNewAccScreen"
     })
   }
 
-  _navigateToLoginScreen(){
+  _navigateToLoginScreen = () => {
     this.props.navigator.push({
       identifier:"LoginScreen"
     })
   }
 
-  _navigateToMapNaviScreen(){
+  _navigateToMapNaviScreen = () => {
     // resetTo(route) clears the existing route stack unlike push(route)
     this.props.navigator.push({
       identifier:"MapNaviScreen",

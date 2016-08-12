@@ -59,6 +59,10 @@ class AccountSetupVehicleScreen extends Component{
     }
   }
 
+  _setVehicleNo = (vehicleNo) => {
+    this.setState({vehicleNo})
+  }
+
 
   render() {
     return (
@@ -90,7 +94,7 @@ class AccountSetupVehicleScreen extends Component{
               <TextInput
               style={[styles.labelsText, {flex:1, padding:0}]}
               underlineColorAndroid="transparent"
-              onChangeText={(vehicleNo) => this.setState({vehicleNo})}
+              onChangeText={this._setVehicleNo}
               value={this.state.vehicleNo}
               defaultValue=""/>
             </View>

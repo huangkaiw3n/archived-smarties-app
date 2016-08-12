@@ -68,6 +68,10 @@ class VehicleConfigScreen extends Component{
     }
   }
 
+  _setVehicleNo = (vehicleNo) => {
+    this.setState({vehicleNo})
+  }
+
   render() {
     return (
       <ViewContainer style={{justifyContent: "flex-start", backgroundColor:"ghostwhite"}}>
@@ -90,7 +94,7 @@ class VehicleConfigScreen extends Component{
               <TextInput
               style={[styles.labelsText, {flex:1, padding:0}]}
               underlineColorAndroid="transparent"
-              onChangeText={(vehicleNo) => this.setState({vehicleNo})}
+              onChangeText={this._setVehicleNo}
               value={this.state.vehicleNo}
               defaultValue=""/>
             </View>
