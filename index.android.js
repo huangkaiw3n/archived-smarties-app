@@ -14,6 +14,7 @@ import MapNaviScreen from "./app/screens/MapNaviScreen"
 import AccountSetupVehicleScreen from "./app/screens/AccountSetupVehicleScreen"
 import AccountSetupPaymentScreen from "./app/screens/AccountSetupPaymentScreen"
 import VehicleConfigScreen from "./app/screens/VehicleConfigScreen"
+import ParkingHistoryScreen from "./app/screens/ParkingHistoryScreen"
 import Geolocation from "Geolocation"
 
 class StreetSmart extends Component {
@@ -85,6 +86,8 @@ class StreetSmart extends Component {
         return <AccountSetupPaymentScreen {...globalNavigatorProps}/>
       case "VehicleConfigScreen":
         return <VehicleConfigScreen {...globalNavigatorProps}/>
+      case "ParkingHistoryScreen":
+        return <ParkingHistoryScreen parkingHistoryData={route.parkingHistoryData} {...globalNavigatorProps}/>
       default:
         return <View style={{flex:1, color:"red"}}/>
       }

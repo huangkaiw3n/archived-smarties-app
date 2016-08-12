@@ -76,7 +76,7 @@ class SideDrawer extends Component{
             <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
+          <TouchableOpacity onPress={this.props.openParkingHistoryScreen} style={styles.sideTabs}>
             <Text style={styles.labelsText}>
               Parking History
             </Text>

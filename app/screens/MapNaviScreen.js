@@ -14,23 +14,27 @@ var {height, width} = Dimensions.get('window')
 
 class MapNaviScreen extends Component{
   constructor(props){
-    var intervalID
     super(props)
+    this.intervalID = null
+    this.startDateTime = null
+    this.elapsedDuration = 0 //in minutes
+    this.isParkingInProgress = false
+    this.isBottomDrawerOpen = false
+    this.parkingHistoryData = []
+    this.parkingCost = 0.5
     this._updateSelectedRoad = this._updateSelectedRoad.bind(this)
     this._openSideDrawer = this._openSideDrawer.bind(this)
     this._closeBottomDrawer = this._closeBottomDrawer.bind(this)
     this._alertSetUpRequired = this._alertSetUpRequired.bind(this)
+    this._openParkingHistoryScreen = this._openParkingHistoryScreen.bind(this)
     this.state = {
       roadname: "",
       headerText: "STREETSMART",
       footerText: "PARK HERE",
-      isBottomDrawerOpen: false,
-      isParkingInProgress: false,
       estParkingDuration: 1,
-      elapsedDuration:0,
       elapsedHour: "00",
       elapsedMin: "00",
-      cost: "$1.00",
+      cost: "$0.50",
     }
   }
 
@@ -104,6 +108,13 @@ class MapNaviScreen extends Component{
     this.refs["SIDE_DRAWER"].openSideDrawer()
   }
 
+  _parkingStarted = () => {
+    this.startDateTime = new Date()
+    console.log(this.startDateTime)
+    this._elapsedParkingDurationTimer()
+    this._alertParkingStarted()
+  }
+
   _bottomButtonHandler = () => {
     console.log("open drawer fired")
     // let toggleDrawerState = !this.state.isBottomDrawerOpen
@@ -113,23 +124,19 @@ class MapNaviScreen extends Component{
     else if (!this.props.navigator.props.vehicleData){
       this._alertSetUpRequired()
     }
-    else if (!this.state.isBottomDrawerOpen){
+    else if (!this.isBottomDrawerOpen){
+      this.isBottomDrawerOpen = true
       this.setState({
-        isBottomDrawerOpen:true,
         headerText:"PARKING DETAILS",
         footerText:"START PARKING SESSION",
       })
     }
-    else if (!this.state.isParkingInProgress){
+    else if (!this.isParkingInProgress){
+      this.isParkingInProgress = true
       this.setState({
-        isParkingInProgress:true,
         headerText: "PARKING IN PROGRESS",
         footerText:"STOP PARKING",
-      },
-      () => {
-        this._elapsedParkingDurationTimer()
-        this._alertParkingStarted()
-      })
+      }, this._parkingStarted)
 
     }
     else {
@@ -138,10 +145,15 @@ class MapNaviScreen extends Component{
   }
 
   _updateClock = () => {
-    const currentDuration = this.state.elapsedDuration
+    this.elapsedDuration = this.elapsedDuration + 1
+    const currentDuration = this.elapsedDuration
     const currentMinutes = currentDuration % 60
     const currentHours = Math.floor(currentDuration / 60)
     let elapsedHourString, elapsedMinString
+
+    if (!(this.elapsedDuration % 30)){ //increase by 50c per 30 min
+      this.parkingCost = this.parkingCost + 0.5
+    }
 
     if (currentMinutes > 9) {
       elapsedMinString = currentMinutes.toString()
@@ -158,47 +170,74 @@ class MapNaviScreen extends Component{
     }
 
     this.setState({
-      elapsedDuration: currentDuration+1,
       elapsedHour: elapsedHourString,
       elapsedMin: elapsedMinString,
+      cost: "$" + this.parkingCost.toFixed(2),
     })
   }
 
   componentWillUnmount(){
-    this._removeTimer()
+    this._clearTimerAndStartDateTime()
   }
 
-  _removeTimer(){
+  _clearTimerAndStartDateTime(){
     if(this.intervalID) {
       clearInterval(this.intervalID)
       this.intervalID = null
     }
+    if(this.startDateTime) {
+      this.startDateTime = null
+    }
+  }
+
+  _resetParkingInfo(){
+    this.elapsedDuration = 0
+    this.isParkingInProgress = false
+    this.isBottomDrawerOpen = false
+    this.parkingCost = 0.5
   }
 
   _elapsedParkingDurationTimer(){
     if (!this.intervalID){
-      this.intervalID = setInterval(this._updateClock, 60000)
+      this.intervalID = setInterval(this._updateClock, 1000) //determines how long 1 minute is
     }
   }
 
+  _saveAndPushParkingInfo(){
+    const parkingInfo = {
+      dateTime: this.startDateTime,
+      venue: this.state.roadname,
+      duration: this.elapsedDuration,
+      amount: this.parkingCost,
+    }
+    this.parkingHistoryData.unshift(parkingInfo)
+    console.log("ParkingInfo:" + parkingInfo)
+    console.log("ParkingHistoryData:" + this.parkingHistoryData)
+  }
+
   _endParkingSession(){
-    this._removeTimer()
+    this._saveAndPushParkingInfo()
+    this._clearTimerAndStartDateTime()
+    this._resetParkingInfo()
     this.setState({
-      isParkingInProgress:false,
-      isBottomDrawerOpen:false,
       headerText: "STREETSMART",
       footerText:"PARK HERE",
-      elapsedDuration:0,
       elapsedHour: "00",
       elapsedMin: "00",
+    }, this._openParkingHistoryScreen)
+  }
+
+  _openParkingHistoryScreen = () => {
+    this.props.navigator.push({
+      identifier: "ParkingHistoryScreen",
+      parkingHistoryData: this.parkingHistoryData,
     })
-    //push parking history screen
   }
 
   _closeBottomDrawer(){
     console.log("close drawer fired")
+    this.isBottomDrawerOpen = false
     this.setState({
-      isBottomDrawerOpen:false,
       headerText:"STREETSMART",
       footerText:"PARK HERE",
     })
@@ -210,7 +249,7 @@ class MapNaviScreen extends Component{
 
   render() {
 
-    if (!this.state.isBottomDrawerOpen) {
+    if (!this.isBottomDrawerOpen) {
       //render a small bar below the map with the road name
       var bottomDrawerView = (
         <View style={{flex:1.3, flexDirection:"row", alignItems:"center", paddingLeft:20, paddingRight:20, borderWidth: 1, borderColor: "gainsboro",}}>
@@ -223,7 +262,7 @@ class MapNaviScreen extends Component{
         </View>
       );
     }
-    else if (!this.state.isParkingInProgress ){
+    else if (!this.isParkingInProgress ){
       //render the bottom drawer with to choose parking duration
       var bottomDrawerView = (
         <View style={{flex:7, flexDirection:"column", alignItems:"stretch", paddingLeft:20, borderWidth: 1, borderColor: "gainsboro",}}>
@@ -276,7 +315,7 @@ class MapNaviScreen extends Component{
               <Text style={styles.clockText}>
                 {this.state.elapsedHour}
               </Text>
-              <Animatable.Text animation="flipInX" iterationCount="infinite" duration={1000} style={styles.clockText}>
+              <Animatable.Text animation="flipInX" iterationCount="infinite" duration={1000} easing="linear" style={styles.clockText}>
                 :
               </Animatable.Text>
               <Text style={styles.clockText}>
@@ -302,10 +341,10 @@ class MapNaviScreen extends Component{
     }
 
     return (
-      <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER" alertSetUpRequired={this._alertSetUpRequired}>
+      <SideDrawer navigator={this.props.navigator} ref="SIDE_DRAWER" alertSetUpRequired={this._alertSetUpRequired} openParkingHistoryScreen={this._openParkingHistoryScreen}>
         <ViewContainer style={{backgroundColor:"ghostwhite"}}>
 
-          <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator} isParkingInProgress={this.state.isParkingInProgress}>
+          <HeaderBarWithMenuIcon onPressMenu={this._openSideDrawer} nav={this.props.navigator} isParkingInProgress={this.isParkingInProgress}>
             {this.state.headerText}
           </HeaderBarWithMenuIcon>
 
@@ -314,9 +353,9 @@ class MapNaviScreen extends Component{
             style={{flex:6}}
             userLocation={this.props.navigator.props.userLocation}
             handler={this._updateSelectedRoad}
-            isBottomDrawerOpen={this.state.isBottomDrawerOpen}
+            isBottomDrawerOpen={this.isBottomDrawerOpen}
             closeBottomDrawer={this._closeBottomDrawer}
-            isParkingInProgress={this.state.isParkingInProgress}>
+            isParkingInProgress={this.isParkingInProgress}>
             </MapViewContainer>
             {bottomDrawerView}
           </View>

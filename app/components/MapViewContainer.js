@@ -20,7 +20,9 @@ class MapViewContainer extends Component{
       console.log("Moved Pin Coord: ")
       console.log(e.nativeEvent.coordinate)
       this.setState({ pinCoordinate: e.nativeEvent.coordinate })
-      this.getStreetNameFromApi(e.nativeEvent.coordinate)
+      if(!this.props.isParkingInProgress){
+        this.getStreetNameFromApi(e.nativeEvent.coordinate)
+      }
       if (this.props.isBottomDrawerOpen) {
         this.props.closeBottomDrawer()
       }
