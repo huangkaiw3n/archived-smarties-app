@@ -96,6 +96,7 @@ class AccountSetupVehicleScreen extends Component{
               underlineColorAndroid="transparent"
               onChangeText={this._setVehicleNo}
               value={this.state.vehicleNo}
+              autoCorrect={false}
               defaultValue=""/>
             </View>
           </View>

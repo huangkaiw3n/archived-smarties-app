@@ -95,6 +95,7 @@ class VehicleConfigScreen extends Component{
               style={[styles.labelsText, {flex:1, padding:0}]}
               underlineColorAndroid="transparent"
               onChangeText={this._setVehicleNo}
+              autoCorrect={false}
               value={this.state.vehicleNo}
               defaultValue=""/>
             </View>
