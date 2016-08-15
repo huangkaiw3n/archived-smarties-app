@@ -40,7 +40,7 @@ class MapViewContainer extends Component{
       let responseJson = await response.json()
       this.props.handler(responseJson.results[0].formatted_address)
     } catch(error) {
-      this.props.handler("Internet connection unavailable")
+      this.props.handler("Parking lot could not be determined. (Check internet connection)")
     }
   }
 
