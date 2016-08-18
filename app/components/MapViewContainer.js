@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, StyleSheet, Text , Platform} from "react-native"
 import MapView from "react-native-maps";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
+import Geolocation from "Geolocation"
 
 class MapViewContainer extends Component{
 
@@ -9,8 +10,8 @@ class MapViewContainer extends Component{
     super(props)
     this.state = {
       pinCoordinate: {
-        latitude: this.props.userLocation.latitude,
-        longitude: this.props.userLocation.longitude,
+        latitude: (this.props.userLocation ? this.props.userLocation.latitude : this.props.userLocation),
+        longitude: (this.props.userLocation ? this.props.userLocation.longitude : this.props.userLocation),
       }
     }
   }
@@ -45,7 +46,27 @@ class MapViewContainer extends Component{
   }
 
   componentWillMount(){
-    this.getStreetNameFromApi(this.state.pinCoordinate)
+    Geolocation.getCurrentPosition(
+     (position) => {
+       let latLon = { latitude:position.coords.latitude,
+                      longitude:position.coords.longitude}
+       this.setState({pinCoordinate: latLon}, () => this.getStreetNameFromApi(latLon))
+       console.log(latLon)
+     },
+     (error) => {
+       alert(error.message)
+       this.setState({
+         pinCoordinate : {
+           latitude:1.3594206,
+           longitude:103.8066663,
+         }})
+     },
+    //  {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+   )
+   this.watchID = Geolocation.watchPosition((position) => {
+     var lastPosition = JSON.stringify(position);
+     this.setState({lastPosition});
+   })
   }
 
   _onPressHandler = () => {
@@ -55,33 +76,41 @@ class MapViewContainer extends Component{
   }
 
   render() {
-    return (
-      <View style={[styles.mapWrapperView, this.props.style || {}]}>
-        <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: this.state.pinCoordinate.latitude,
-          longitude: this.state.pinCoordinate.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
-        }}
-        showsUserLocation={true}
-        followsUserLocation={true}
-        loadingEnabled={true}
-        loadingBackgroundColor="gainsboro"
-        onPress={this._onPressHandler}>
-          <MapView.Marker
-          draggable
-          coordinate={this.state.pinCoordinate}
-          pinColor = {"steelblue"}
-          onDragEnd={this._handleSelectedLoc}>
-          {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
-            {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
-            {(Platform.OS === "android") ? <MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />: null}
-          </MapView.Marker>
-        </MapView>
-      </View>
-    )
+    if(!this.state.pinCoordinate.latitude || !this.state.pinCoordinate.longitude){
+      return (
+        <View style={[styles.mapWrapperView, this.props.style || {}]}>
+        </View>
+      )
+    }
+    else {
+      return (
+        <View style={[styles.mapWrapperView, this.props.style || {}]}>
+          <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: this.state.pinCoordinate.latitude,
+            longitude: this.state.pinCoordinate.longitude,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          }}
+          showsUserLocation={true}
+          followsUserLocation={true}
+          loadingEnabled={true}
+          loadingBackgroundColor="gainsboro"
+          onPress={this._onPressHandler}>
+            <MapView.Marker
+            draggable
+            coordinate={this.state.pinCoordinate}
+            pinColor = {"steelblue"}
+            onDragEnd={this._handleSelectedLoc}>
+            {/*Custom marker doesnt seem to align with actual marker position. Makes it hard to select for dragging.*/}
+              {/*<MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />*/}
+              {(Platform.OS === "android") ? <MaterialsIcon name="person-pin-circle" size={60} color="steelblue" />: null}
+            </MapView.Marker>
+          </MapView>
+        </View>
+      )
+    }
   }
 }
 

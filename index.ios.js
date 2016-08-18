@@ -97,7 +97,7 @@ class StreetSmart extends Component {
   render() {
     return (
       <Navigator
-        initialRoute = {{identifier: "WelcomeScreen"}}
+        initialRoute = {{identifier: "MapNaviScreen"}}
         ref="appNavigator"
         userData = {this.state.userData}
         vehicleData = {this.state.vehicleData}
