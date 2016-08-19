@@ -8,6 +8,7 @@ import SideDrawer from "../components/SideDrawer"
 import Entypo from "react-native-vector-icons/Entypo"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import * as Animatable from 'react-native-animatable'
+import ModalPicker from 'react-native-modal-picker'
 
 var AnimatedCircleIcon = Animatable.createAnimatableComponent(FontAwesome)
 var {height, width} = Dimensions.get('window')
@@ -54,6 +55,8 @@ class MapNaviScreen extends Component{
     this.isBottomDrawerOpen = false
     this.parkingHistoryData = (Platform.OS === "ios") ? dummyDataIOS:dummyDataAndroid
     this.parkingCost = 0.5
+    this.vehSelected = false
+    this.durationSelected = false
     this._updateSelectedRoad = this._updateSelectedRoad.bind(this)
     this._openSideDrawer = this._openSideDrawer.bind(this)
     this._closeBottomDrawer = this._closeBottomDrawer.bind(this)
@@ -186,7 +189,7 @@ class MapNaviScreen extends Component{
     // if (!this.props.navigator.props.userData){
     //   this._alertNeedLogIn()
     // }
-    if (!this.props.navigator.props.vehicleNo){
+    if (!this.props.navigator.props.vehicleNo || !this.vehSelected || !this.durationSelected){
       this._alertSetUpRequired()
     }
     else if (!this.isParkingInProgress){
@@ -306,7 +309,8 @@ class MapNaviScreen extends Component{
   }
 
   _setEstParkingDuration = (estParkingDuration) => {
-    this.setState({estParkingDuration})
+    this.setState({estParkingDuration: estParkingDuration.key})
+    this.vehSelected = true
   }
 
   _setVehicleType = (isCarSelected) => {
@@ -318,6 +322,8 @@ class MapNaviScreen extends Component{
       isBikeSelected: !isCarSelected,
     })
   }
+
+  // _checkVehicleTypeSelected
 
   _vehicleTextOnSubmit = () => {
 
@@ -338,6 +344,27 @@ class MapNaviScreen extends Component{
   }
 
   render() {
+    let index = 0
+    const durationData = [
+            { key: index++, section: true, label: 'Select Estimated Duration' },
+            { key: index++, label: '1 hour' },
+            { key: index++, label: '2 hour' },
+            { key: index++, label: '3 hour' },
+            { key: index++, label: '4 hour' },
+            { key: index++, label: '5 hour' },
+            { key: index++, label: '6 hour' },
+            { key: index++, label: '7 hour' },
+            { key: index++, label: '8 hour' },
+            { key: index++, label: '9 hour' },
+            { key: index++, label: '10 hour' },
+            { key: index++, label: '11 hour' },
+            { key: index++, label: '12 hour' },
+        ];
+    const vehicleTypeData = [
+      { key: index++, section: true, label: 'Select Your Vehicle Type' },
+      { key: index++, label: 'Motor Car' },
+      { key: index++, label: 'Motor Bike' },
+    ];
 
     if (!this.isParkingInProgress ){
       //render the bottom drawer with to choose parking duration
@@ -355,7 +382,6 @@ class MapNaviScreen extends Component{
             <Text style={[styles.labelsText, {flex:4, color:"grey"}]}>
               Vehicle No.
             </Text>
-            <View style={{flexDirection:"row", marginRight:10, flex:2}}>
               <TextInput
               ref="VEH_TEXTINPUT"
               style={[styles.labelsText, {flex:1, padding:0}]}
@@ -370,26 +396,37 @@ class MapNaviScreen extends Component{
               onFocus={this._vehicleTextOnFocus}
               placeholder="Your Vehicle No."
               />
-            </View>
+
           </View>
-          <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}, {flex:1}]}>
+          <View style={[styles.sideTabs, {flex:1}]}>
             <Text style={[styles.labelsText, {flex:13, color:"grey"}]}>
               Vehicle Type
             </Text>
-            <Picker
+            <ModalPicker
+                    data={vehicleTypeData}
+                    initValue="Select Your Vehicle Type"
+                    onChange={(option)=>{
+                      console.log(option)
+                      this.durationSelected = true
+                    }} />
+            {/* <Picker
             // mode="dropdown"
             style={[styles.pickerStyle, {flex:3}]}
             selectedValue={this.props.navigator.props.isCarSelected}
             onValueChange={this._setVehicleType}>
               <Picker.Item label="Motor Car" value={true} />
               <Picker.Item label="Motor Bike" value={false} />
-            </Picker>
+            </Picker> */}
           </View>
-          <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}, {flex:1}]}>
+          <View style={[styles.sideTabs, {flex:1}]}>
             <Text style={[styles.labelsText, {flex:2, color:"grey"}]}>
               Est. Parking Duration
             </Text>
-            <Picker
+            <ModalPicker
+                    data={durationData}
+                    initValue="Select Estimated Duration"
+                    onChange={this._setEstParkingDuration} />
+            {/* <Picker
             // mode="dropdown"
             style={styles.pickerStyle}
             selectedValue={this.state.estParkingDuration}
@@ -406,7 +443,7 @@ class MapNaviScreen extends Component{
               <Picker.Item label="10 Hr" value={10} />
               <Picker.Item label="11 Hr" value={11}/>
               <Picker.Item label="12 Hr" value={12}/>
-            </Picker>
+            </Picker> */}
           </View>
         </View>
       );

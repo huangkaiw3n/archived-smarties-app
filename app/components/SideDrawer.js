@@ -42,15 +42,14 @@ class SideDrawer extends Component{
           VEHICLE
         </Text>
 
-          <TouchableOpacity onPress={this._vehicleConfigHandler} style={styles.sideTabs}>
+          <View style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
               Your Vehicle
             </Text>
             <Text style={[styles.labelsText, {color:"darkgrey"}]}>
               {this.props.navigator.props.vehicleNo}
             </Text>
-            <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
-          </TouchableOpacity>
+          </View>
 
         <TouchableOpacity onPress={this.props.openParkingHistoryScreen} style={styles.sideTabs}>
           <Text style={[styles.labelsText, {flex:4}]}>
