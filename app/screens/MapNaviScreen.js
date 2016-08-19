@@ -8,6 +8,7 @@ import SideDrawer from "../components/SideDrawer"
 import Entypo from "react-native-vector-icons/Entypo"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import * as Animatable from 'react-native-animatable'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 var AnimatedCircleIcon = Animatable.createAnimatableComponent(FontAwesome)
 var {height, width} = Dimensions.get('window')
@@ -372,6 +373,7 @@ class MapNaviScreen extends Component{
               />
             </View>
           </View>
+          <KeyboardSpacer/>
           <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}, {flex:1}]}>
             <Text style={[styles.labelsText, {flex:13, color:"grey"}]}>
               Vehicle Type
