@@ -9,6 +9,7 @@ import Entypo from "react-native-vector-icons/Entypo"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import * as Animatable from 'react-native-animatable'
 import ModalPicker from 'react-native-modal-picker'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 var AnimatedCircleIcon = Animatable.createAnimatableComponent(FontAwesome)
 var {height, width} = Dimensions.get('window')
@@ -68,10 +69,11 @@ class MapNaviScreen extends Component{
       isCarSelected: this.props.navigator.props.isCarSelected,
       headerText: "STREETSMART",
       footerText: "PARK HERE",
-      estParkingDuration: 1,
+      estParkingDuration: null,
       elapsedHour: "00",
       elapsedMin: "00",
       cost: "$0.50",
+      vehicleType: "",
     }
   }
 
@@ -384,7 +386,7 @@ class MapNaviScreen extends Component{
             </Text>
               <TextInput
               ref="VEH_TEXTINPUT"
-              style={[styles.labelsText, {flex:1, padding:0}]}
+              style={[styles.labelsText, {flex:1, padding:0, textAlign:"right"}]}
               underlineColorAndroid="transparent"
               onChangeText={this._setVehicleNo}
               autoCorrect={false}
@@ -398,16 +400,18 @@ class MapNaviScreen extends Component{
               />
 
           </View>
+          <KeyboardSpacer/>
           <View style={[styles.sideTabs, {flex:1}]}>
             <Text style={[styles.labelsText, {flex:13, color:"grey"}]}>
               Vehicle Type
             </Text>
             <ModalPicker
                     data={vehicleTypeData}
-                    initValue="Select Your Vehicle Type"
+                    initValue={(this.state.vehicleType ? this.state.vehicleType : "Select Your Vehicle Type")}
                     onChange={(option)=>{
                       console.log(option)
                       this.durationSelected = true
+                      this.setState({vehicleType:option.label})
                     }} />
             {/* <Picker
             // mode="dropdown"
@@ -424,7 +428,7 @@ class MapNaviScreen extends Component{
             </Text>
             <ModalPicker
                     data={durationData}
-                    initValue="Select Estimated Duration"
+                    initValue={(this.state.estParkingDuration ? this.state.estParkingDuration.toString() + " hour" : "Select Estimated Duration")}
                     onChange={this._setEstParkingDuration} />
             {/* <Picker
             // mode="dropdown"
@@ -502,7 +506,9 @@ class MapNaviScreen extends Component{
             isParkingInProgress={this.isParkingInProgress}>
             </MapViewContainer>
             {bottomDrawerView}
+
           </View>
+
 
           <TouchableOpacity onPress={this._bottomButtonHandler} style={[styles.headerFooterBar, {justifyContent:"center"}]}>
             <Text style={styles.barText}>
