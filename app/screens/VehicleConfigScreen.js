@@ -10,9 +10,9 @@ class VehicleConfigScreen extends Component{
   constructor(props){
     super(props)
     this.state = {
-      vehicleNo: this.props.navigator.props.vehicleData.vehicleNo,
-      isCarSelected:true,
-      isBikeSelected:false,
+      vehicleNo: this.props.navigator.props.vehicleNo,
+      isCarSelected: this.props.navigator.props.isCarSelected,
+      isBikeSelected: this.props.navigator.props.isBikeSelected,
     }
     this._updateVehNoAndPopScreen = this._updateVehNoAndPopScreen.bind(this)
   }
@@ -29,10 +29,16 @@ class VehicleConfigScreen extends Component{
   }
 
   _toggleSelectedVehicle() {
-    this.setState({
+    this.props.navigator.props.updateVehicleData({
+      vehicleNo: this.props.navigator.props.vehicleNo,
       isCarSelected: !this.state.isCarSelected,
       isBikeSelected: !this.state.isBikeSelected,
     })
+    this.setState({
+      isCarSelected:!this.state.isCarSelected,
+      isBikeSelected:!this.state.isBikeSelected,
+    })
+
   }
 
   _motorCarPressed = () => {
@@ -59,13 +65,8 @@ class VehicleConfigScreen extends Component{
   }
 
   _updateVehNoAndPopScreen(){
-    if (this.state.vehicleNo === ""){
-      this._alertVehicleNo()
-    }
-    else{
-      this.props.navigator.props.updateVehicleData(this.state)
-      this.props.navigator.pop()
-    }
+    this.props.navigator.props.updateVehicleData(this.state)
+    this.props.navigator.pop()
   }
 
   _setVehicleNo = (vehicleNo) => {
@@ -97,7 +98,7 @@ class VehicleConfigScreen extends Component{
               onChangeText={this._setVehicleNo}
               autoCorrect={false}
               value={this.state.vehicleNo}
-              defaultValue=""/>
+              placeholder="Your Vehicle No."/>
             </View>
           </View>
           <Text style={styles.headingsText}>

@@ -23,7 +23,9 @@ class StreetSmart extends Component {
     super(props)
     this.state = {
       userData: null,
-      vehicleData: null,
+      vehicleNo: "",
+      isCarSelected: true,
+      isBikeSelected: false,
       userLocation: null,
       lastPosition: null,
     }
@@ -60,7 +62,12 @@ class StreetSmart extends Component {
   }
 
   _updateVehicleData(vehicleData){
-    this.setState({ vehicleData })
+    console.log(vehicleData)
+    this.setState({
+      vehicleNo: vehicleData.vehicleNo,
+      isCarSelected: vehicleData.isCarSelected,
+      isBikeSelected: vehicleData.isBikeSelected,
+     })
   }
 
   _clearData(){
@@ -100,7 +107,9 @@ class StreetSmart extends Component {
         initialRoute = {{identifier: "MapNaviScreen"}}
         ref="appNavigator"
         userData = {this.state.userData}
-        vehicleData = {this.state.vehicleData}
+        vehicleNo = {this.state.vehicleNo}
+        isCarSelected={this.state.isCarSelected}
+        isBikeSelected={this.state.isBikeSelected}
         userLocation = {this.state.userLocation}
         updateUserData={this._updateUserData}
         updateVehicleData={this._updateVehicleData}

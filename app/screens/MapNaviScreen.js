@@ -1,6 +1,6 @@
 "use strict"
 import React, { Component } from "react"
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Picker, Platform, Dimensions } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Picker, Platform, Dimensions, TextInput, Keyboard } from "react-native"
 import MapViewContainer from "../components/MapViewContainer"
 import ViewContainer from "../components/ViewContainer"
 import HeaderBarWithMenuIcon from "../components/HeaderBarWithMenuIcon"
@@ -61,6 +61,8 @@ class MapNaviScreen extends Component{
     this._openParkingHistoryScreen = this._openParkingHistoryScreen.bind(this)
     this.state = {
       roadname: "",
+      vehicleNo: this.props.navigator.props.vehicleNo,
+      isCarSelected: this.props.navigator.props.isCarSelected,
       headerText: "STREETSMART",
       footerText: "PARK HERE",
       estParkingDuration: 1,
@@ -70,11 +72,30 @@ class MapNaviScreen extends Component{
     }
   }
 
-  componentDidMount(){
-    if (!this.props.navigator.props.vehicleData && this.props.navigator.props.userData){
-      this._alertSetUp()
-    }
+  componentWillMount(){
+    Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
   }
+
+  _keyboardDidShow = () => {
+
+  }
+
+  _keyboardDidHide = () => {
+    console.log("HIDE!")
+    this.props.navigator.props.updateVehicleData({
+      vehicleNo: this.props.navigator.props.vehicleNo,
+      isCarSelected: this.props.navigator.props.isCarSelected,
+      isBikeSelected: this.props.navigator.props.isBikeSelected,
+    })
+    this.refs["VEH_TEXTINPUT"].blur()
+  }
+
+  // componentDidMount(){
+  //   if (!this.props.navigator.props.vehicleData && this.props.navigator.props.userData){
+  //     this._alertSetUp()
+  //   }
+  // }
 
   _alertNeedLogIn(){
     Alert.alert(
@@ -100,11 +121,10 @@ class MapNaviScreen extends Component{
 
   _alertSetUpRequired(){
     Alert.alert(
-      "Set up required",
-      "Please set up your account to begin parking.",
+      "Vehicle information required",
+      "Please enter your vehicle information to begin parking.",
       [
-        {text: "Not now"},
-        {text: "Yes", onPress: () => this.props.navigator.push({identifier: "AccountSetupVehicleScreen"})},
+        {text: "OK"},
       ]
     )
   }
@@ -132,6 +152,19 @@ class MapNaviScreen extends Component{
     )
   }
 
+  _alertConfirmParking(){
+    Alert.alert(
+      "Parking confirmation",
+     "Are you sure you want to park here?",
+      [
+        {text: "Cancel"},
+        {text: "Yes", onPress: () => {
+          this._startParking()}
+        },
+      ]
+    )
+  }
+
   _updateSelectedRoad(roadname){
     this.setState({ roadname })
   }
@@ -150,30 +183,26 @@ class MapNaviScreen extends Component{
   _bottomButtonHandler = () => {
     console.log("open drawer fired")
     // let toggleDrawerState = !this.state.isBottomDrawerOpen
-    if (!this.props.navigator.props.userData){
-      this._alertNeedLogIn()
-    }
-    else if (!this.props.navigator.props.vehicleData){
+    // if (!this.props.navigator.props.userData){
+    //   this._alertNeedLogIn()
+    // }
+    if (!this.props.navigator.props.vehicleNo){
       this._alertSetUpRequired()
     }
-    else if (!this.isBottomDrawerOpen){
-      this.isBottomDrawerOpen = true
-      this.setState({
-        headerText:"PARKING DETAILS",
-        footerText:"START PARKING SESSION",
-      })
-    }
     else if (!this.isParkingInProgress){
-      this.isParkingInProgress = true
-      this.setState({
-        headerText: "PARKING IN PROGRESS",
-        footerText:"STOP PARKING",
-      }, this._parkingStarted)
-
+      this._alertConfirmParking()
     }
     else {
       this._alertEndParking()
     }
+  }
+
+  _startParking(){
+    this.isParkingInProgress = true
+    this.setState({
+      headerText: "PARKING IN PROGRESS",
+      footerText:"STOP PARKING",
+    }, this._parkingStarted)
   }
 
   _updateClock = () => {
@@ -280,42 +309,88 @@ class MapNaviScreen extends Component{
     this.setState({estParkingDuration})
   }
 
+  _setVehicleType = (isCarSelected) => {
+    console.log("fired", isCarSelected)
+    this.setState({isCarSelected})
+    this.props.navigator.props.updateVehicleData({
+      vehicleNo: this.props.navigator.props.vehicleNo,
+      isCarSelected: isCarSelected,
+      isBikeSelected: !isCarSelected,
+    })
+  }
+
+  _vehicleTextOnSubmit = () => {
+
+    this.props.navigator.props.updateVehicleData({
+      vehicleNo: this.props.navigator.props.vehicleNo,
+      isCarSelected: this.props.navigator.props.isCarSelected,
+      isBikeSelected: this.props.navigator.props.isBikeSelected,
+    })
+    this.refs["VEH_TEXTINPUT"].blur()
+  }
+
+  _setVehicleNo = (vehicleNo) => {
+    this.props.navigator.props.updateVehicleData({
+      vehicleNo: vehicleNo,
+      isCarSelected: this.state.isCarSelected,
+      isBikeSelected: !this.state.isCarSelected,
+    })
+  }
+
   render() {
 
-    if (!this.isBottomDrawerOpen) {
-      //render a small bar below the map with the road name
-      var bottomDrawerView = (
-        <View style={{flex:1.3, flexDirection:"row", alignItems:"center", paddingLeft:20, paddingRight:20, borderWidth: 1, borderColor: "gainsboro",}}>
-          <View style={{flex:5}}>
-            <Text style={{color:"black", fontSize:16}}>Parking Lot</Text>
-          </View>
-          <View style={{flex:3}}>
-            <Text style={{color:"black", fontSize:16}}>{this.state.roadname}</Text>
-          </View>
-        </View>
-      );
-    }
-    else if (!this.isParkingInProgress ){
+    if (!this.isParkingInProgress ){
       //render the bottom drawer with to choose parking duration
       var bottomDrawerView = (
         <View style={{flex:7, flexDirection:"column", alignItems:"stretch", paddingLeft:20, borderWidth: 1, borderColor: "gainsboro",}}>
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-            <Text style={[styles.labelsText, {flex:4}]}>
+          <View style={[styles.sideTabs, {flex:1, flexDirection:"row", alignItems:"center"}]}>
+            <View style={{flex:3}}>
+              <Text style={{color:"grey", fontSize:16}}>Parking Lot</Text>
+            </View>
+            <View style={{flex:7}}>
+              <Text style={{color:"black", fontSize:16, textAlign:"right"}}>{this.state.roadname}</Text>
+            </View>
+          </View>
+          <View style={[styles.sideTabs, {flex:1}]}>
+            <Text style={[styles.labelsText, {flex:4, color:"grey"}]}>
               Vehicle No.
             </Text>
             <View style={{flexDirection:"row", marginRight:10, flex:2}}>
-              <Text style={[styles.labelsText, {color:"darkgrey", flex:2}]}>
-                {this.props.navigator.props.vehicleData.vehicleNo}
-              </Text>
-              <Entypo name="chevron-thin-right" style={styles.chevronRight}></Entypo>
+              <TextInput
+              ref="VEH_TEXTINPUT"
+              style={[styles.labelsText, {flex:1, padding:0}]}
+              underlineColorAndroid="transparent"
+              onChangeText={this._setVehicleNo}
+              autoCorrect={false}
+              value={this.props.navigator.props.vehicleNo}
+              blurOnSubmit={true}
+              multiline={false}
+              returnKeyType="done"
+              onSubmitEditing={this._vehicleTextOnSubmit}
+              onFocus={this._vehicleTextOnFocus}
+              placeholder="Your Vehicle No."
+              />
             </View>
-          </TouchableOpacity>
-          <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}]}>
-            <Text style={[styles.labelsText, {flex:2}]}>
-              Estimated Parking Duration
+          </View>
+          <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}, {flex:1}]}>
+            <Text style={[styles.labelsText, {flex:13, color:"grey"}]}>
+              Vehicle Type
             </Text>
             <Picker
-            mode="dropdown"
+            // mode="dropdown"
+            style={[styles.pickerStyle, {flex:3}]}
+            selectedValue={this.props.navigator.props.isCarSelected}
+            onValueChange={this._setVehicleType}>
+              <Picker.Item label="Motor Car" value={true} />
+              <Picker.Item label="Motor Bike" value={false} />
+            </Picker>
+          </View>
+          <View style={[styles.sideTabs, (Platform.OS === "ios") ? {height:200}:{}, {flex:1}]}>
+            <Text style={[styles.labelsText, {flex:2, color:"grey"}]}>
+              Est. Parking Duration
+            </Text>
+            <Picker
+            // mode="dropdown"
             style={styles.pickerStyle}
             selectedValue={this.state.estParkingDuration}
             onValueChange={this._setEstParkingDuration}>
@@ -333,7 +408,6 @@ class MapNaviScreen extends Component{
               <Picker.Item label="12 Hr" value={12}/>
             </Picker>
           </View>
-
         </View>
       );
     }
@@ -383,7 +457,7 @@ class MapNaviScreen extends Component{
 
           <View style={{flex:9, justifyContent:"flex-start"}}>
             <MapViewContainer
-            style={{flex:6}}
+            style={{flex:7}}
             userLocation={this.props.navigator.props.userLocation}
             handler={this._updateSelectedRoad}
             isBottomDrawerOpen={this.isBottomDrawerOpen}
@@ -441,6 +515,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
+    paddingRight: 20,
   },
   labelsText: {
     fontSize: 16,

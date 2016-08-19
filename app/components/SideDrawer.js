@@ -26,101 +26,41 @@ class SideDrawer extends Component{
   }
 
   _vehicleConfigHandler = () => {
-    if (!this.props.navigator.props.vehicleData) {
-      this.props.alertSetUpRequired()
-    }
-    else {
+    // if (!this.props.navigator.props.vehicleData) {
+    //   this.props.alertSetUpRequired()
+    // }
+    // else {
       this.props.navigator.push({identifier: "VehicleConfigScreen"})
-    }
+    // }
   }
 
   render() {
 
-    if (this.props.navigator.props.userData === null){
-      var sideDrawerView = (
-        <View style={styles.sideDrawerView}>
-          <Text style={styles.headingsText}>
-            ACCOUNT
-          </Text>
-
-          <TouchableOpacity onPress={(event) => this.props.navigator.resetTo({identifier: "WelcomeScreen"})} style={[styles.sideTabs, {marginTop:10}]}>
-            <Text style={styles.labelsText}>
-            Log in or create a new account
-            </Text>
-          </TouchableOpacity>
-
-        </View>
-      );
-
-    }
-    else{
-      var sideDrawerView = (
-        <View style={styles.sideDrawerView}>
-          <Text style={styles.headingsText}>
-            USER
-          </Text>
-          <Text style={[styles.labelsText, {marginLeft: 15}]}>
-            {this.props.navigator.props.userData.email}
-          </Text>
-          <Text style={styles.headingsText}>
-            VEHICLE
-          </Text>
+    var sideDrawerView = (
+      <View style={styles.sideDrawerView}>
+        <Text style={styles.headingsText}>
+          VEHICLE
+        </Text>
 
           <TouchableOpacity onPress={this._vehicleConfigHandler} style={styles.sideTabs}>
             <Text style={[styles.labelsText, {flex:4}]}>
-              Vehicle No.
+              Your Vehicle
             </Text>
             <Text style={[styles.labelsText, {color:"darkgrey"}]}>
-              {this.props.navigator.props.vehicleData ? this.props.navigator.props.vehicleData.vehicleNo : ""}
+              {this.props.navigator.props.vehicleNo}
             </Text>
             <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.props.openParkingHistoryScreen} style={styles.sideTabs}>
-            <Text style={styles.labelsText}>
-              Parking History
-            </Text>
-          </TouchableOpacity>
-
-          <Text style={styles.headingsText}>
-            PAYMENT
+        <TouchableOpacity onPress={this.props.openParkingHistoryScreen} style={styles.sideTabs}>
+          <Text style={[styles.labelsText, {flex:4}]}>
+            Parking History
           </Text>
+          <Icon name="chevron-thin-right" style={styles.chevronRight}></Icon>
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-            <Text style={[styles.labelsText, {flex:4}]}>
-              Credit Balance
-            </Text>
-            <Text style={[styles.labelsText, {color:"darkgrey"}]}>
-              {/*credit balance amount here*/}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-            <Text style={styles.labelsText}>
-              Top Up Credit
-            </Text>
-          </TouchableOpacity>
-
-          <Text style={styles.headingsText}>
-            ACCOUNT
-          </Text>
-
-          <TouchableOpacity onPress={(event) => this.onClick} style={styles.sideTabs}>
-            <Text style={styles.labelsText}>
-              Change Password
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => this._logOutHandler()} style={styles.sideTabs}>
-            <Text style={styles.labelsText}>
-              Log Out
-            </Text>
-          </TouchableOpacity>
-
-        </View>
-      );
-    }
-
+      </View>
+    );
 
     return (
       <DrawerLayout
