@@ -16,15 +16,7 @@ import AccountSetupPaymentScreen from "./app/screens/AccountSetupPaymentScreen"
 import VehicleConfigScreen from "./app/screens/VehicleConfigScreen"
 import ParkingHistoryScreen from "./app/screens/ParkingHistoryScreen"
 import Geolocation from "Geolocation"
-import * as firebase from 'firebase';
-
-const config = {
-     apiKey: "AIzaSyD8teYh60MnxpQso5uFyWLsZcmtvbXYw0U",
-     authDomain: "smarties-ebaab.firebaseapp.com",
-     databaseURL: "https://smarties-ebaab.firebaseio.com",
-     storageBucket: "",
-   };
-const firebaseApp = firebase.initializeApp(config);
+import { getDatabase } from './app/database'
 
 class StreetSmart extends Component {
 
@@ -38,7 +30,7 @@ class StreetSmart extends Component {
       userLocation: null,
       lastPosition: null,
     }
-    this.itemsRef = firebaseApp.database().ref()
+    this.itemsRef = getDatabase().ref()
     this._updateUserData = this._updateUserData.bind(this)
     this._updateVehicleData = this._updateVehicleData.bind(this)
     this._clearData = this._clearData.bind(this)
@@ -86,8 +78,8 @@ class StreetSmart extends Component {
     this._updateVehicleData(null)
   }
 
-  _pushObjectToDb(object) {
-    this.itemsRef.push(object);
+  _pushObjectToDb(key, value) {
+    this.itemsRef.child(key).set(value);
   }
 
   _renderScene(route, navigator){

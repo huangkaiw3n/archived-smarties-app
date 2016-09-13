@@ -179,6 +179,7 @@ class MapNaviScreen extends Component{
   }
 
   _parkingStarted = () => {
+    this.props.navigator.props.pushObjectToDb(this.props.navigator.props.vehicleNo, true)
     this.startDateTime = new Date()
     console.log(this.startDateTime)
     this._elapsedParkingDurationTimer()
@@ -283,6 +284,7 @@ class MapNaviScreen extends Component{
   }
 
   _endParkingSession(){
+    this.props.navigator.props.pushObjectToDb(this.props.navigator.props.vehicleNo, false)
     this._saveAndPushParkingInfo()
     this._clearTimerAndStartDateTime()
     this._resetParkingInfo()
