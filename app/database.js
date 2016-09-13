@@ -10,6 +10,12 @@ const initFirebase = () => {
            databaseURL: "https://smarties-ebaab.firebaseio.com",
            storageBucket: "",
         };
+        // const config = {
+        //   apiKey: "AIzaSyBzClvv2oiYFWRv1AbpwXz_KK84WiOLA-s",
+        //   authDomain: "parkpark-334b8.firebaseapp.com",
+        //   databaseURL: "https://parkpark-334b8.firebaseio.com",
+        //   storageBucket: "",
+        // };
 
         Firebase.database.enableLogging(true)
         Firebase.initializeApp(config)
@@ -21,8 +27,3 @@ export const getDatabase = () => {
     initFirebase()
     return Firebase.database()
 }
-
-    //  apiKey: "AIzaSyBzClvv2oiYFWRv1AbpwXz_KK84WiOLA-s",
-    //  authDomain: "parkpark-334b8.firebaseapp.com",
-    //  databaseURL: "https://parkpark-334b8.firebaseio.com",
-    //  storageBucket: "",
