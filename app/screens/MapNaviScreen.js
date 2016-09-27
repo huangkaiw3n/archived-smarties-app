@@ -359,7 +359,7 @@ class MapNaviScreen extends Component{
             <Text style={[styles.labelsText, {flex:4, color:"grey"}]}>
               Vehicle No.
             </Text>
-            <View style={{flexDirection:"row", marginRight:10, flex:2}}>
+            <View style={{flexDirection:"row", marginRight:10, flex:3}}>
               <TextInput
               ref="VEH_TEXTINPUT"
               style={[styles.labelsText, {flex:1, padding:0}]}
