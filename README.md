@@ -1,3 +1,7 @@
+## :exclamation: Known Issues
+
+This is outdated! Go to https://github.com/datagovsg/smarties-driver-app for the current version.
+
 ## Overview
 
 Carpark payment app front-end with React Native.
