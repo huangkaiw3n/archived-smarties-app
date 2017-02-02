@@ -1,4 +1,4 @@
-## :exclamation: Known Issues
+## :exclamation: NOTICE!!!
 
 This is outdated! Go to https://github.com/datagovsg/smarties-driver-app for the current version.
 
